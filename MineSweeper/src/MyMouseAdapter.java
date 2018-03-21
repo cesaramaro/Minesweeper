@@ -12,7 +12,7 @@ public class MyMouseAdapter extends MouseAdapter {
 	static public Mines Mines = new Mines(10);
     
     private Random generator = new Random();
-    private Color lastUsedColor = null;
+//    private Color lastUsedColor = null;
     private final Color FLAG_COLOR = Color.RED;
     
     public void mousePressed(MouseEvent e) {
@@ -76,39 +76,16 @@ public class MyMouseAdapter extends MouseAdapter {
 
         switch (e.getButton()) {
             case 1:     //Left mouse button
-                if ((myPanel.mouseDownGridX == -1) || (myPanel.mouseDownGridY == -1)) {
-                    //Had pressed outside
-                    //Do nothing
-                } else {
-                    if ((gridX == -1) || (gridY == -1)) {
-                        //Is releasing outside
-                        //Do nothing
-                    } else {
-                        if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) {
-                            //Released the mouse button on a different cell where it was pressed
-                            //Do nothing
-                        } else {
-                            //Released the mouse button on the same cell where it was pressed
-                            if ((gridX == 0) || (gridY == 0)) {
-                                //On the left column and on the top row... do nothing
-                            } else { 
-                                //On the grid other than on the left column and on the top row:
-                                if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(FLAG_COLOR)) {
-                                    // Do nothing; Can't edit a flag unless it's using right-click
-                                } else {
-                                Color newColor = getRandomColor();
-                                
-                                while (newColor.equals(lastUsedColor)) {
-                                    newColor = getRandomColor();
-                                } lastUsedColor = newColor;
-                                
-                                myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-                                myPanel.repaint();
-                                }
-                            }
-                        }
-                    }
-                }
+            	
+            	//Show mines
+            	if(Mines.MinesNearbyCount(gridX, gridY) && myPanel.colorArray[gridX][gridY].equals(Color.GRAY)){
+            		//mines around the click
+            		int count = Mines.MinesNearbyCount(gridX, gridY);
+            	}
+            	else if(Mines.CheckSelection(gridX, gridY)){
+            		myPanel.revealAdjacent(gridX, gridY);
+            	}
+                
                 myPanel.repaint();
                 break;
             case 3:     //Right mouse button
@@ -128,7 +105,7 @@ public class MyMouseAdapter extends MouseAdapter {
     
     /*
      * Returns one of 9 random colors
-     */
+     
     private Color getRandomColor() {
         Color newColor = null;
         switch (generator.nextInt(10)) {
@@ -163,5 +140,5 @@ public class MyMouseAdapter extends MouseAdapter {
                 newColor = Color.CYAN;
         }
         return newColor;
-    }
+    }*/
 }
