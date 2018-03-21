@@ -8,6 +8,8 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
+	
+	static public Mines Mines = new Mines(10);
     
     private Random generator = new Random();
     private Color lastUsedColor = null;
