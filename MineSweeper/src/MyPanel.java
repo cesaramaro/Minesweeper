@@ -65,10 +65,20 @@ public class MyPanel extends JPanel {
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
-				if ((x == 0) || (y != TOTAL_ROWS - 1)) {
+				if ((y != TOTAL_ROWS - 1)) {
 					Color c = colorArray[x][y];
 					g.setColor(c);
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
+				}
+			}
+		}
+		//mines closeby
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {
+			for (int y = 0; y < TOTAL_ROWS; y++) {
+				if ((MinesCloseby[x][y] != 0) && colorArray[x][y] != Color.BLACK) {
+					int total = MinesCloseby[x][y];
+					g.setColor(Color.BLUE);
+					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1);
 				}
 			}
 		}
@@ -82,7 +92,7 @@ public class MyPanel extends JPanel {
 	public void revealAdjacent(int x, int y){
 		if((x<0) || (y<0) || (x>=9) || (y>=9)){return;}
 		//Number of mines close to click.
-		if(MyMouseAdapter.Mines.MinesNearbyCount(x, y)){
+		if(MyMouseAdapter.Mines.MinesNearby(x, y)){
 		int count = 0;
 		colorArray[x][y] = Color.GRAY;
 		MinesCloseby[x][y] = count;
