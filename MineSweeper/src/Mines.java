@@ -10,9 +10,9 @@ public class Mines {
 		return MinesCoordinates;
 	}
 	
-	public Mines(int lenght) {
-		MinesCoordinates = new Mines[lenght];
-		MinesCoordinates2 = new Mines[lenght];
+	public Mines(int length) {
+		MinesCoordinates = new Mines[length];
+		MinesCoordinates2 = new Mines[length];
 	}
 
 	private int x;
