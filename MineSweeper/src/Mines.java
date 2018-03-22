@@ -13,15 +13,12 @@ public class Mines {
 	// Constructor
     public Mines() {
         generateMines();
-        System.out.println(mineList); // Test
     }
 	
-    
-    
     /**
      * Generate mines and add them to a list
      */
-    // TODO Prevent mines from repeating
+    // TODO Prevent mines from overlapping
     private void generateMines() {
         Random generator = new Random();
         int minesAmount = 0;

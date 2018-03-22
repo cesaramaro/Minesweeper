@@ -80,8 +80,8 @@ public class MyMouseAdapter extends MouseAdapter {
             case 1:     //Left mouse button
             	if (gridX >= 0 && gridY >= 0) {
             	    // TODO FIX: When you click on a mine, you have to click another cell for the mines to show up
-            	    // Checks the cell clicked is a mine
-            	    if (minesClass.isMine(myPanel.mouseDownGridX, myPanel.mouseDownGridY) == true) {
+            	    // Checks if the cell clicked is a mine
+            	    if (minesClass.isMine(gridX, gridY) == true) {
             	        // Reveal mines
             	        for (Point mine : minesList) {
             	            myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_COLOR; 
@@ -90,7 +90,7 @@ public class MyMouseAdapter extends MouseAdapter {
                     JOptionPane.showOptionDialog(null, "Would you like to play again?", "GAME OVER!!", JOptionPane.DEFAULT_OPTION, JOptionPane.CLOSED_OPTION, null, options, options[0]);
                     break;
             	    }
-                 // 
+            	    
             		if(myPanel.countTotal >= 71) {
             		    ImageIcon picture = new ImageIcon("Won.jpg");           			
             		    Object[] options = { "Play Again.", "EXIT" };
@@ -127,15 +127,15 @@ public class MyMouseAdapter extends MouseAdapter {
             	}
             	}
                 break;
-            case 3:     //Right mouse button
+            case 3:     // Right mouse button
                 if (myPanel.colorArray[gridX][gridY].equals(Color.WHITE)) {
                     myPanel.colorArray[gridX][gridY] = FLAG_COLOR;
                     myPanel.repaint();
                 } 
                 else if (myPanel.colorArray[gridX][gridY].equals(Color.GRAY) 
-                        || myPanel.colorArray[gridX][gridY].equals(Color.BLACK)) {
-                    //Do Nothing
-                } else{
+                        || myPanel.colorArray[gridX][gridY].equals(MINE_COLOR)) {
+                    // Do Nothing
+                } else {
                 	myPanel.colorArray[gridX][gridY] = Color.WHITE;
                 	myPanel.repaint();
                 }
