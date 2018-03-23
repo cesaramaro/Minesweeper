@@ -85,7 +85,7 @@ public class MyMouseAdapter extends MouseAdapter {
             	    /*
             	     * Checks if the cell clicked is a mine
             	     */
-            	    if (Main.getMines().contains(clickedCell)) {
+            	    if (Main.getMines().contains(clickedCell) && !myPanel.colorArray[gridX][gridY].equals(FLAG_COLOR)) {
             	        // Reveal mines
             	        for (Point mine : minesList) {
             	            myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_COLOR; 
