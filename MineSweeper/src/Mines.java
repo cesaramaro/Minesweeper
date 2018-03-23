@@ -1,6 +1,5 @@
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Mines {
 
@@ -94,13 +93,7 @@ public class Mines {
      * Checks how many mines there are nearby
      * @return int amount of mines nearby
      */
-    // TODO Shorten
 	public int getMinesNearbyCount(int x, int y) {
-        Point leftCell = new Point(x-1, y);
-        Point rightCell = new Point(x+1, y);
-        Point topCell = new Point(x, y-1);
-        Point bottomCell = new Point(x, y+1);
-        ArrayList<Point> mines = Main.getMines();
         int minesCount = 0;
         
         for(int i = x-1; i <= x+1; i++){

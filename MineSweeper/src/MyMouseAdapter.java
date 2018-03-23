@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
 public class MyMouseAdapter extends MouseAdapter {
 	
     private final Color FLAG_COLOR = Color.RED;
-    private final Color MINE_COLOR = Color.BLACK;
     private final Color NOT_REVEALED = Color.WHITE;
-    public static final Color REVEALED = Color.GRAY;
+    public static final Color MINE_COLOR = Color.BLACK;
+    public static final Color REVEALED = Color.LIGHT_GRAY;
     public enum GameStatus { GAME_OVER, WON, PLAYING }
     GameStatus status = GameStatus.PLAYING;
     Mines Mines = new Mines();
@@ -104,14 +104,9 @@ public class MyMouseAdapter extends MouseAdapter {
             	     */
             	    if (myPanel.colorArray[gridX][gridY].equals(NOT_REVEALED) && !Main.getMines().contains(clickedCell)) {
             		    myPanel.revealAdjacent(gridX, gridY);
-            		    myPanel.colorArray[gridX][gridY] = REVEALED;
-            		    myPanel.repaint();    
+            		    //myPanel.colorArray[gridX][gridY] = REVEALED;
+            		    myPanel.repaint();
             		}
-            	    
-            	    if (Mines.getMinesNearbyCount(gridX, gridY) > 0) {
-            	        // TODO => Print image or number
-            	        System.out.println("MINES NEARBY: " + Mines.getMinesNearbyCount(gridX, gridY));
-            	    }
             	}
             	
             	 /*
