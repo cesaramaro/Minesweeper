@@ -103,17 +103,9 @@ public class Mines {
         ArrayList<Point> mines = Main.getMines();
         int minesCount = 0;
         
-        for (Point mine : Main.getMines()) {
-            if (mine.equals(leftCell) 
-                    || mine.equals(rightCell)
-                    || mine.equals(topCell)
-                    || mine.equals(bottomCell)) {
-                minesCount++;
-            }
-        }
         for(int i = x-1; i <= x+1; i++){
 			for(int j = y-1; j <= y+1; j++){
-				// La conjunción de dos negaciones es la negación de una disjunción.
+				// La conjuncion de dos negaciones es la negacion de una disjuncion.
 				if(!(i == x && j == y)){
 					if(isMine(i, j))
 						minesCount++;
@@ -122,16 +114,6 @@ public class Mines {
 		}
 		return minesCount;
 	}
-	
-//	public static void revealNearby(int x, int y) {
-//	    
-//	    while (!hasMinesNearby(x, y)) {
-//	        colorArray[x][y] = MyMouseAdapter.REVEALED;
-//	    }
-//	    
-//	}
-
-	
 }
 
 
