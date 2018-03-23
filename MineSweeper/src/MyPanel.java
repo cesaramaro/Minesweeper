@@ -83,22 +83,25 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
-
-
+	
 	// This method helps to find the adjacent boxes that don't have a mine.
 	// It is partially implemented since the verify hasn't been discussed in class
 	// Verify that the coordinates in the parameters are valid.
 	// Also verifies if there are any mines around the x,y coordinate
-	public void revealAdjacent(int x, int y){
-		if((x<0) || (y<0) || (x>=9) || (y>=9)){return;}
+	public void revealAdjacent(int x, int y) {
+		if((x < 0) || (y < 0) || (x >= 9) || (y >= 9)) { return; }
+	    if (Mines.hasMinesNearby(x, y)) { return; }
+	    
 		//Number of mines close to click.
-		if(MyMouseAdapter.Mines.MinesNearby(x, y)){
-		int count = 0;
-		colorArray[x][y] = Color.GRAY;
-		MinesCloseby[x][y] = count;
-		countTotal++; 
-		repaint();
-		return;}
+//		if(Mines.hasMinesNearby(x, y)) {
+//		    int count = 0;
+//		    colorArray[x][y] = Color.GRAY;
+//		    MinesCloseby[x][y] = count;
+//		    countTotal++; 
+//		    repaint();
+//		    
+//		    return;
+//		}
 		else {
 			colorArray[x][y] = Color.GRAY;
 			revealAdjacent(x-1, y);
@@ -107,7 +110,7 @@ public class MyPanel extends JPanel {
 			revealAdjacent(x, y+1);
 			countTotal++;
 		}
-		
+	    
 		System.out.println("Test");
 
 	}
