@@ -3,11 +3,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
-import java.awt.Point;
 import java.awt.geom.Ellipse2D;
 import java.util.Random;
-import javax.swing.JPanel;
-
 import javax.swing.JPanel;
 
 public class MyPanel extends JPanel {
@@ -17,6 +14,13 @@ public class MyPanel extends JPanel {
 	private static final int INNER_CELL_SIZE = 32;
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 9;
+	private final int NUMBER_SIZE = 20;
+	private final int MINE_WIDTH = 20;
+	private final int MINE_HEIGHT = 20;
+	private final int CROSS_WIDTH = 4;
+	private final int CROSS_HEIGHT = 24;
+	private final int CELL_CENTER = INNER_CELL_SIZE / 2;
+	
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
@@ -83,17 +87,16 @@ public class MyPanel extends JPanel {
 				if ((MinesCloseby[x][y] != 0) && colorArray[x][y] != MyMouseAdapter.MINE_COLOR) {
 					int total = MinesCloseby[x][y];
 					g.setColor(getNumberColor(total));
-					g.setFont(new Font("Arial", Font.BOLD, 40));
-					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 10, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 20);
-				}else if((MinesCloseby[x][y] == 0) && colorArray[x][y] == Color.GRAY){
-                    g.setColor(Color.BLACK  );
-                    Ellipse2D.Double mine = new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1))+ 35, ((y * (INNER_CELL_SIZE + 1)) + 35), 30, 30);
-                    g2.draw(mine);  
-                    g2.setPaint(Color.BLACK);
-                    g2.fill(new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1))+ 35, ((y * (INNER_CELL_SIZE + 1)) + 35), 30, 30));
-                    g.fillRect((x * (INNER_CELL_SIZE + 1))+ 48, ((y * (INNER_CELL_SIZE + 1)) + 30), 4, 40);
-                    g.fillRect((x * (INNER_CELL_SIZE + 1))+ 30, ((y * (INNER_CELL_SIZE + 1)) + 48), 40, 4);
-                }
+					g.setFont(new Font("Arial", Font.BOLD, NUMBER_SIZE));
+					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 10, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 25);
+				}
+				else if ((MinesCloseby[x][y] == 0) && (colorArray[x][y] == MyMouseAdapter.MINE_CELL_COLOR)) {
+                    Ellipse2D.Double mineCircle = new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1) + CELL_CENTER), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER), MINE_WIDTH, MINE_HEIGHT);
+                    g2.setPaint(MyMouseAdapter.MINE_COLOR);
+                    g2.fill(mineCircle);
+                    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), CROSS_WIDTH, CROSS_HEIGHT);
+                    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), CROSS_HEIGHT, CROSS_WIDTH);
+                }	
 			}
 		}
 	}

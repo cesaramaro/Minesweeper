@@ -14,7 +14,8 @@ import javax.swing.JOptionPane;
 public class MyMouseAdapter extends MouseAdapter {
 	
     private final Color FLAG_COLOR = Color.RED;
-    private final Color MINE_COLOR = Color.GRAY;
+    public static final Color MINE_COLOR = Color.BLACK;
+    public static final Color MINE_CELL_COLOR = Color.GRAY;
     private final Color NOT_REVEALED = Color.WHITE;
     public static final Color REVEALED = Color.LIGHT_GRAY;
     public enum GameStatus { GAME_OVER, WON, PLAYING }
@@ -88,7 +89,7 @@ public class MyMouseAdapter extends MouseAdapter {
             	    if (Main.getMines().contains(clickedCell) && !myPanel.colorArray[gridX][gridY].equals(FLAG_COLOR)) {
             	        // Reveal mines
             	        for (Point mine : minesList) {
-            	            myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_COLOR; 
+            	            myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_CELL_COLOR; 
             	        }
                     myPanel.colorArray[gridX][gridY] = Color.GRAY;
                     myPanel.repaint();
@@ -121,7 +122,7 @@ public class MyMouseAdapter extends MouseAdapter {
                         myPanel.colorArray[gridX][gridY] = FLAG_COLOR;
                         myPanel.repaint();
                     } 
-                    else if (myPanel.colorArray[gridX][gridY].equals(REVEALED) || myPanel.colorArray[gridX][gridY].equals(MINE_COLOR)) {
+                    else if (myPanel.colorArray[gridX][gridY].equals(REVEALED) || myPanel.colorArray[gridX][gridY].equals(MINE_CELL_COLOR)) {
                         // Do Nothing
                     } else {
                         myPanel.colorArray[gridX][gridY] = NOT_REVEALED;
