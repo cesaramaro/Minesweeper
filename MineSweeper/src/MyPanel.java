@@ -16,7 +16,7 @@ public class MyPanel extends JPanel {
 	private static final int GRID_Y = 25;
 	private static final int INNER_CELL_SIZE = 50;
 	private static final int TOTAL_COLUMNS = 9;
-	private static final int TOTAL_ROWS = 10;   //Last row has only one cell
+	private static final int TOTAL_ROWS = 10;
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
@@ -97,7 +97,7 @@ public class MyPanel extends JPanel {
 						g.setColor(Color.CYAN);
 					}
 					g.setFont(new Font("Arial", Font.BOLD, 40));
-					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 18, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 38);
+					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 15, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 35);
 				}else if((MinesCloseby[x][y] == 0) && colorArray[x][y] == Color.GRAY){
 					g.setColor(Color.BLACK	);
 					Ellipse2D.Double mine = new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1))+ 35, ((y * (INNER_CELL_SIZE + 1)) + 35), 30, 30);
@@ -106,19 +106,24 @@ public class MyPanel extends JPanel {
 					g2.fill(new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1))+ 35, ((y * (INNER_CELL_SIZE + 1)) + 35), 30, 30));
 					g.fillRect((x * (INNER_CELL_SIZE + 1))+ 48, ((y * (INNER_CELL_SIZE + 1)) + 30), 4, 40);
 					g.fillRect((x * (INNER_CELL_SIZE + 1))+ 30, ((y * (INNER_CELL_SIZE + 1)) + 48), 40, 4);
-
 				}
 			}
 		}
 	}
+	
+	/*
+	 * Gets a color based on the amount of mines surrounding the cell
+	 * @param int mines amount
+	 * @return Color
+	 */
 
 	// This method helps to find the adjacent boxes that don't have a mine.
 	// It is partially implemented since the verify hasn't been discussed in class
 	// Verify that the coordinates in the parameters are valid.
 	// Also verifies if there are any mines around the x,y coordinate
 	public void revealAdjacent(int x, int y) {
-		if((x < 0) || (y < 0) || (x >= 9) || (y >= 9)) { return; }
-		if(Mines.isMine(x, y)){return;}
+		if ((x < 0) || (y < 0) || (x >= 9) || (y >= 9)) { return; }
+		if (Mines.isMine(x, y)){ return; }
 		if (Mines.hasMinesNearby(x, y)) {
 			int counter = Mines.getMinesNearbyCount(x, y);
 			colorArray[x][y] = MyMouseAdapter.REVEALED;
@@ -126,17 +131,17 @@ public class MyPanel extends JPanel {
 			countTotal++;
 			repaint();
 			return;
-		}else{
-			if(colorArray[x][y] == MyMouseAdapter.REVEALED){return;}
+		} else {
+			if (colorArray[x][y] == MyMouseAdapter.REVEALED) { return; }
 			colorArray[x][y] = MyMouseAdapter.REVEALED;
+			repaint();
 			revealAdjacent(x-1, y);
 			revealAdjacent(x, y-1);
 			revealAdjacent(x+1, y);
 			revealAdjacent(x, y+1);
 			countTotal++;
 		}
-		System.out.println("Test");
-
+		repaint();
 	}
 	
 	//Getters

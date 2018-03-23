@@ -16,7 +16,6 @@ public class Main {
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myFrame.setLocation(450, 150);
 		myFrame.setSize(545, 565);
-
 		MyPanel myPanel = new MyPanel();
 		myFrame.add(myPanel);
 

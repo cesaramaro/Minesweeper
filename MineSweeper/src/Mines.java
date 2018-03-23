@@ -1,6 +1,5 @@
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Mines {
 
@@ -94,26 +93,12 @@ public class Mines {
      * Checks how many mines there are nearby
      * @return int amount of mines nearby
      */
-    // TODO Shorten
 	public int getMinesNearbyCount(int x, int y) {
-        Point leftCell = new Point(x-1, y);
-        Point rightCell = new Point(x+1, y);
-        Point topCell = new Point(x, y-1);
-        Point bottomCell = new Point(x, y+1);
-        ArrayList<Point> mines = Main.getMines();
         int minesCount = 0;
         
-        for (Point mine : Main.getMines()) {
-            if (mine.equals(leftCell) 
-                    || mine.equals(rightCell)
-                    || mine.equals(topCell)
-                    || mine.equals(bottomCell)) {
-                minesCount++;
-            }
-        }
         for(int i = x-1; i <= x+1; i++){
 			for(int j = y-1; j <= y+1; j++){
-				// La conjunción de dos negaciones es la negación de una disjunción.
+				// La conjuncion de dos negaciones es la negacion de una disjuncion.
 				if(!(i == x && j == y)){
 					if(isMine(i, j))
 						minesCount++;
@@ -122,16 +107,6 @@ public class Mines {
 		}
 		return minesCount;
 	}
-	
-//	public static void revealNearby(int x, int y) {
-//	    
-//	    while (!hasMinesNearby(x, y)) {
-//	        colorArray[x][y] = MyMouseAdapter.REVEALED;
-//	    }
-//	    
-//	}
-
-	
 }
 
 
