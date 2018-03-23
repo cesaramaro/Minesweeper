@@ -14,7 +14,7 @@ public class Mines {
      * @param y coordinate 
      * @return boolean
      */
-    public boolean isMine(int x, int y) {
+    public static boolean isMine(int x, int y) {
         for (Point coords : Main.getMines()) {
             if ((coords.getX() == x) && (coords.getY() == y)) {
                 return true;
@@ -70,11 +70,19 @@ public class Mines {
         Point rightCell = new Point(x+1, y);
         Point topCell = new Point(x, y-1);
         Point bottomCell = new Point(x, y+1);
+        Point topLeft = new Point(x-1, y-1);
+        Point topRight = new Point(x+1, y-1);
+        Point bottomLeft = new Point(x-1, y+1);
+        Point bottomRight = new Point(x+1, y+1);
         
         if (mines.contains(leftCell) 
                 || mines.contains(rightCell)
                 || mines.contains(topCell) 
-                || mines.contains(bottomCell)) {
+                || mines.contains(bottomCell)
+                || mines.contains(topLeft)
+                || mines.contains(topRight)
+                || mines.contains(bottomLeft)
+                || mines.contains(bottomRight)) {
             return true;
         } else {
         return false;
@@ -85,7 +93,8 @@ public class Mines {
      * Checks how many mines there are nearby
      * @return int amount of mines nearby
      */
-	public int minesNearbyCount(int x, int y) {
+    // TODO Shorten
+	public static int getMinesNearbyCount(int x, int y) {
         Point leftCell = new Point(x-1, y);
         Point rightCell = new Point(x+1, y);
         Point topCell = new Point(x, y-1);
@@ -94,7 +103,10 @@ public class Mines {
         int minesCount = 0;
         
         for (Point mine : Main.getMines()) {
-            if (mine.equals(leftCell)) {
+            if (mine.equals(leftCell) 
+                    || mine.equals(rightCell)
+                    || mine.equals(topCell)
+                    || mine.equals(bottomCell)) {
                 minesCount++;
             }
         }

@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.Point;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -103,11 +104,15 @@ public class MyPanel extends JPanel {
 //		    return;
 //		}
 		else {
-			colorArray[x][y] = Color.GRAY;
+			colorArray[x][y] = MyMouseAdapter.REVEALED;
 			revealAdjacent(x-1, y);
 			revealAdjacent(x+1, y);
 			revealAdjacent(x, y-1);
 			revealAdjacent(x, y+1);
+			revealAdjacent(x-1, y-1);
+			revealAdjacent(x+1, y-1);
+			revealAdjacent(x-1, y+1);
+			revealAdjacent(x+1, y+1);
 			countTotal++;
 		}
 	    
