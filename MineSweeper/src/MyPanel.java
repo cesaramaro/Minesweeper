@@ -1,16 +1,20 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.geom.Ellipse2D;
 import java.util.Random;
-
 import javax.swing.JPanel;
+
+import javafx.scene.shape.Ellipse;
 
 public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
 	private static final int GRID_X = 25;
 	private static final int GRID_Y = 25;
-	private static final int INNER_CELL_SIZE = 30;
+	private static final int INNER_CELL_SIZE = 50;
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 10;   //Last row has only one cell
 	public int x = -1;
@@ -20,7 +24,6 @@ public class MyPanel extends JPanel {
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int MinesCloseby[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int countTotal = 0;
-	public int numberColor = 0;
 	static public Mines Mines = new Mines();
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
@@ -40,8 +43,10 @@ public class MyPanel extends JPanel {
 		}
 	}
 	public void paintComponent(Graphics g) {
+		Graphics2D g2 = (Graphics2D)g;
 		super.paintComponent(g);
-
+		
+		
 		//Compute interior coordinates
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
@@ -52,7 +57,7 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor( new Color(0xB57EDC));
 		g.fillRect(x1, y1, width + 1, height + 1);
 
 		//Draw the grid minus the bottom row (which has only one cell)
@@ -78,15 +83,35 @@ public class MyPanel extends JPanel {
 		//mines closeby
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
-				if ((MinesCloseby[x][y] != 0) && colorArray[x][y] != Color.BLACK) {
+				if ((MinesCloseby[x][y] != 0) && colorArray[x][y] != Color.GRAY) {
 					int total = MinesCloseby[x][y];
-					g.setColor(Color.BLUE);
-					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 10, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 20);
+					if(total == 1){
+						g.setColor(Color.BLUE);
+					}else if(total == 2){
+						g.setColor(Color.RED);
+					}else if(total == 3){
+						g.setColor(Color.YELLOW);
+					}else if(total == 4){
+						g.setColor(Color.GREEN);
+					}else{
+						g.setColor(Color.CYAN);
+					}
+					g.setFont(new Font("Arial", Font.BOLD, 40));
+					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 18, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 38);
+				}else if((MinesCloseby[x][y] == 0) && colorArray[x][y] == Color.GRAY){
+					g.setColor(Color.BLACK	);
+					Ellipse2D.Double mine = new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1))+ 35, ((y * (INNER_CELL_SIZE + 1)) + 35), 30, 30);
+					g2.draw(mine);	
+					g2.setPaint(Color.BLACK);
+					g2.fill(new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1))+ 35, ((y * (INNER_CELL_SIZE + 1)) + 35), 30, 30));
+					g.fillRect((x * (INNER_CELL_SIZE + 1))+ 48, ((y * (INNER_CELL_SIZE + 1)) + 30), 4, 40);
+					g.fillRect((x * (INNER_CELL_SIZE + 1))+ 30, ((y * (INNER_CELL_SIZE + 1)) + 48), 40, 4);
+
 				}
 			}
 		}
 	}
-	
+
 	// This method helps to find the adjacent boxes that don't have a mine.
 	// It is partially implemented since the verify hasn't been discussed in class
 	// Verify that the coordinates in the parameters are valid.
