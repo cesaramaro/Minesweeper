@@ -1,8 +1,12 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.geom.Ellipse2D;
 import java.util.Random;
+import javax.swing.JPanel;
 
 import javax.swing.JPanel;
 
@@ -20,7 +24,6 @@ public class MyPanel extends JPanel {
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int MinesCloseby[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int countTotal = 0;
-	public int numberColor = 0;
 	static public Mines Mines = new Mines();
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
@@ -40,6 +43,7 @@ public class MyPanel extends JPanel {
 		}
 	}
 	public void paintComponent(Graphics g) {
+		Graphics2D g2 = (Graphics2D)g;
 		super.paintComponent(g);
 
 		//Compute interior coordinates
@@ -52,7 +56,7 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor( new Color(0xB57EDC));
 		g.fillRect(x1, y1, width + 1, height + 1);
 
 		//Draw the grid
@@ -79,8 +83,17 @@ public class MyPanel extends JPanel {
 				if ((MinesCloseby[x][y] != 0) && colorArray[x][y] != MyMouseAdapter.MINE_COLOR) {
 					int total = MinesCloseby[x][y];
 					g.setColor(getNumberColor(total));
+					g.setFont(new Font("Arial", Font.BOLD, 40));
 					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 10, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 20);
-				}
+				}else if((MinesCloseby[x][y] == 0) && colorArray[x][y] == Color.GRAY){
+                    g.setColor(Color.BLACK  );
+                    Ellipse2D.Double mine = new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1))+ 35, ((y * (INNER_CELL_SIZE + 1)) + 35), 30, 30);
+                    g2.draw(mine);  
+                    g2.setPaint(Color.BLACK);
+                    g2.fill(new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1))+ 35, ((y * (INNER_CELL_SIZE + 1)) + 35), 30, 30));
+                    g.fillRect((x * (INNER_CELL_SIZE + 1))+ 48, ((y * (INNER_CELL_SIZE + 1)) + 30), 4, 40);
+                    g.fillRect((x * (INNER_CELL_SIZE + 1))+ 30, ((y * (INNER_CELL_SIZE + 1)) + 48), 40, 4);
+                }
 			}
 		}
 	}

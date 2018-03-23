@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 public class MyMouseAdapter extends MouseAdapter {
 	
     private final Color FLAG_COLOR = Color.RED;
+    private final Color MINE_COLOR = Color.GRAY;
     private final Color NOT_REVEALED = Color.WHITE;
-    public static final Color MINE_COLOR = Color.BLACK;
     public static final Color REVEALED = Color.LIGHT_GRAY;
     public enum GameStatus { GAME_OVER, WON, PLAYING }
     GameStatus status = GameStatus.PLAYING;
@@ -90,7 +90,7 @@ public class MyMouseAdapter extends MouseAdapter {
             	        for (Point mine : minesList) {
             	            myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_COLOR; 
             	        }
-                    myPanel.colorArray[gridX][gridY] = Color.BLACK;
+                    myPanel.colorArray[gridX][gridY] = Color.GRAY;
                     myPanel.repaint();
                     status = GameStatus.GAME_OVER;
                     // TODO => Make buttons work (Play again, exit) 
@@ -111,27 +111,7 @@ public class MyMouseAdapter extends MouseAdapter {
             	
             	 /*
             	  * TODO Win screen shows up depending on the number of times the revealAdjacent method is called
-            	  * not when the amount of gray cells is >= 71
             	  * 
-              if(myPanel.countTotal >= 71) {
-                  ImageIcon picture = new ImageIcon("Won.jpg");                       
-                  Object[] options = { "Play Again.", "EXIT" };
-                  JOptionPane.showOptionDialog(null, "Congratulations!\nPlay Again?", "YOU WON!!", JOptionPane.DEFAULT_OPTION, JOptionPane.CLOSED_OPTION, null, options, options[0]);
-              }
-              if(Mines.hasMinesNearby(gridX, gridY) 
-                  && myPanel.colorArray[gridX][gridY].equals(Color.GRAY) 
-                  && !myPanel.colorArray[gridX][gridY].equals(MINE_COLOR)
-                  && !myPanel.colorArray[gridX][gridY].equals(FLAG_COLOR)) {
-              //mines around the click
-              int count = Mines.MinesNearbyCount(gridX, gridY);
-          
-              Color newColor = Color.GRAY;
-              myPanel.colorArray[gridX][gridY] = newColor;
-              myPanel.MinesCloseby[gridX][gridY] = count;
-              myPanel.repaint();
-              myPanel.countTotal++;
-          
-              }
             	  */
             	    myPanel.repaint();
                 break;
