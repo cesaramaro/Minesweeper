@@ -19,11 +19,11 @@ public class MyMouseAdapter extends MouseAdapter {
     public static final Color REVEALED = Color.GRAY;
     public enum GameStatus { GAME_OVER, WON, PLAYING }
     GameStatus status = GameStatus.PLAYING;
+    Mines Mines = new Mines();
     ArrayList<Point> minesList = Main.getMines();
     Object[] loseOptions = { "Play Again", "Exit" };
     
     public void mousePressed(MouseEvent e) {
-   
         Component c = e.getComponent();
         while (!(c instanceof JFrame)) {
             c = c.getParent();
@@ -58,7 +58,6 @@ public class MyMouseAdapter extends MouseAdapter {
     }
     
     public void mouseReleased(MouseEvent e) {
-    
         Component c = e.getComponent();
         while (!(c instanceof JFrame)) {
             c = c.getParent();
@@ -94,8 +93,8 @@ public class MyMouseAdapter extends MouseAdapter {
                     myPanel.colorArray[gridX][gridY] = Color.BLUE;
                     myPanel.repaint();
                     status = GameStatus.GAME_OVER;
-                    // TODO Make buttons work (Play again, exit) 
-                    // TODO Fix - Takes longer for mines to appear because of the JOptionPane
+                    // TODO => Make buttons work (Play again, exit) 
+                    // TODO Fix => Takes longer for mines to appear because of the JOptionPane
                     //JOptionPane.showOptionDialog(null, "Would you like to play again?", "GAME OVER!!", JOptionPane.DEFAULT_OPTION, JOptionPane.CLOSED_OPTION, null, loseOptions, loseOptions[0]);
                     break;
             	    }
@@ -104,26 +103,26 @@ public class MyMouseAdapter extends MouseAdapter {
             	     * If it's not a mine or already revealed, reveal nearby cells
             	     */
             	    if (myPanel.colorArray[gridX][gridY].equals(NOT_REVEALED) && !Main.getMines().contains(clickedCell)) {
-            		    //myPanel.revealAdjacent(gridX, gridY);
+            		    myPanel.revealAdjacent(gridX, gridY);
             		    myPanel.colorArray[gridX][gridY] = REVEALED;
             		    myPanel.repaint();    
             		}
             	    
             	    if (Mines.getMinesNearbyCount(gridX, gridY) > 0) {
-            	        // TODO Print image or number
+            	        // TODO => Print image or number
             	        System.out.println("MINES NEARBY: " + Mines.getMinesNearbyCount(gridX, gridY));
             	    }
             	}
             	
             	 /*
-            	  * TODO
-            	
+            	  * TODO Win screen shows up depending on the number of times the revealAdjacent method is called
+            	  * not when the amount of gray cells is >= 71
+            	  * 
               if(myPanel.countTotal >= 71) {
                   ImageIcon picture = new ImageIcon("Won.jpg");                       
                   Object[] options = { "Play Again.", "EXIT" };
-                  JOptionPane.showOptionDialog(null, "Congratulations!/n Play Again?", "YOU WON!!", JOptionPane.DEFAULT_OPTION, JOptionPane.CLOSED_OPTION, null, options, options[0]);
+                  JOptionPane.showOptionDialog(null, "Congratulations!\nPlay Again?", "YOU WON!!", JOptionPane.DEFAULT_OPTION, JOptionPane.CLOSED_OPTION, null, options, options[0]);
               }
-         	
               if(Mines.hasMinesNearby(gridX, gridY) 
                   && myPanel.colorArray[gridX][gridY].equals(Color.GRAY) 
                   && !myPanel.colorArray[gridX][gridY].equals(MINE_COLOR)
@@ -139,7 +138,6 @@ public class MyMouseAdapter extends MouseAdapter {
           
               }
             	  */
-            	
             	    myPanel.repaint();
                 break;
             case 3:     // Right mouse button

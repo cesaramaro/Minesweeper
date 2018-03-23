@@ -14,7 +14,7 @@ public class Mines {
      * @param y coordinate 
      * @return boolean
      */
-    public static boolean isMine(int x, int y) {
+    public boolean isMine(int x, int y) {
         for (Point coords : Main.getMines()) {
             if ((coords.getX() == x) && (coords.getY() == y)) {
                 return true;
@@ -64,7 +64,7 @@ public class Mines {
      * @return boolean
      */
     // TODO Shorten
-    public static boolean hasMinesNearby(int x, int y) {
+    public boolean hasMinesNearby(int x, int y) {
         ArrayList<Point> mines = Main.getMines();
         Point leftCell = new Point(x-1, y);
         Point rightCell = new Point(x+1, y);
@@ -94,7 +94,7 @@ public class Mines {
      * @return int amount of mines nearby
      */
     // TODO Shorten
-	public static int getMinesNearbyCount(int x, int y) {
+	public int getMinesNearbyCount(int x, int y) {
         Point leftCell = new Point(x-1, y);
         Point rightCell = new Point(x+1, y);
         Point topCell = new Point(x, y-1);
@@ -112,6 +112,14 @@ public class Mines {
         }
 		return minesCount;
 	}
+	
+//	public static void revealNearby(int x, int y) {
+//	    
+//	    while (!hasMinesNearby(x, y)) {
+//	        colorArray[x][y] = MyMouseAdapter.REVEALED;
+//	    }
+//	    
+//	}
 
 	public boolean checkSelection(int gridX, int gridY) {
 		// TODO Auto-generated method stub
