@@ -20,7 +20,7 @@ public class MyPanel extends JPanel {
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int MinesCloseby[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int countTotal = 0;
-	Mines Mines = new Mines();
+	static public Mines Mines = new Mines();
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -91,15 +91,23 @@ public class MyPanel extends JPanel {
 	// Verify that the coordinates in the parameters are valid.
 	// Also verifies if there are any mines around the x,y coordinate
 	public void revealAdjacent(int x, int y) {
-	    repaint();
 		if((x < 0) || (y < 0) || (x >= 9) || (y >= 9)) { return; }
-		else if (!Mines.hasMinesNearby(x, y)) {
+		if(Mines.isMine(x, y)){return;}
+		if (Mines.hasMinesNearby(x, y)) {
+			int counter = Mines.getMinesNearbyCount(x, y);
 			colorArray[x][y] = MyMouseAdapter.REVEALED;
+			MinesCloseby[x][y] = counter;
 			countTotal++;
+			repaint();
+			return;
+		}else{
+			if(colorArray[x][y] == MyMouseAdapter.REVEALED){return;}
+			colorArray[x][y] = MyMouseAdapter.REVEALED;
 			revealAdjacent(x-1, y);
 			revealAdjacent(x, y-1);
 			revealAdjacent(x+1, y);
 			revealAdjacent(x, y+1);
+			countTotal++;
 		}
 		System.out.println("Test");
 
