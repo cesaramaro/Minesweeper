@@ -90,7 +90,7 @@ public class MyMouseAdapter extends MouseAdapter {
             	        for (Point mine : minesList) {
             	            myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_COLOR; 
             	        }
-                    myPanel.colorArray[gridX][gridY] = Color.BLUE;
+                    myPanel.colorArray[gridX][gridY] = Color.BLACK;
                     myPanel.repaint();
                     status = GameStatus.GAME_OVER;
                     // TODO => Make buttons work (Play again, exit) 
@@ -146,7 +146,7 @@ public class MyMouseAdapter extends MouseAdapter {
                         myPanel.colorArray[gridX][gridY] = FLAG_COLOR;
                         myPanel.repaint();
                     } 
-                    else if (myPanel.colorArray[gridX][gridY].equals(REVEALED)) {
+                    else if (myPanel.colorArray[gridX][gridY].equals(REVEALED) || myPanel.colorArray[gridX][gridY].equals(MINE_COLOR)) {
                         // Do Nothing
                     } else {
                         myPanel.colorArray[gridX][gridY] = NOT_REVEALED;

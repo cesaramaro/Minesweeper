@@ -1,13 +1,14 @@
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Mines {
-	
+
 	// Constructor
     public Mines() {
         // Do nothing
     }
-	
+    
     /*
      * Verifies if the received coordinates are a mine
      * @param x coordinate
@@ -110,6 +111,15 @@ public class Mines {
                 minesCount++;
             }
         }
+        for(int i = x-1; i <= x+1; i++){
+			for(int j = y-1; j <= y+1; j++){
+				// La conjunción de dos negaciones es la negación de una disjunción.
+				if(!(i == x && j == y)){
+					if(isMine(i, j))
+						minesCount++;
+				}
+			}
+		}
 		return minesCount;
 	}
 	
@@ -121,10 +131,7 @@ public class Mines {
 //	    
 //	}
 
-	public boolean checkSelection(int gridX, int gridY) {
-		// TODO Auto-generated method stub
-		return false;
-	}	
+	
 }
 
 
