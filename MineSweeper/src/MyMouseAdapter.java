@@ -18,6 +18,7 @@ public class MyMouseAdapter extends MouseAdapter {
     public enum GameStatus { GAME_OVER, WON, PLAYING }
     GameStatus status = GameStatus.PLAYING;
     Mines Mines = new Mines();
+    Main main = new Main();
     ArrayList<Point> minesList = Main.getMines();
     Object[] Options = { "Play Again", "Exit" };
     
@@ -81,12 +82,12 @@ public class MyMouseAdapter extends MouseAdapter {
             case 1:     //Left mouse button
             	if ((gridX >= 0) && (gridY >= 0) && (status == GameStatus.PLAYING)) {
             		//TODO fix so when it wins it ends
-//            		if(!myPanel.colorArray[gridX][gridY].equals(MINE_COLOR)){
-//            			if(myPanel.countTotal >= 76){		
-//            				JOptionPane.showMessageDialog(null, "YOU WIN!!", "GAMEOVER", JOptionPane.OK_CANCEL_OPTION, null);
-//                	    	System.exit(0);
-//            			}
-//            		}
+            		if(!myPanel.colorArray[gridX][gridY].equals(MINE_COLOR)){
+            			if(myPanel.countTotal == 71 ){		
+            				JOptionPane.showMessageDialog(null, "YOU WIN!!", "GAMEOVER", JOptionPane.OK_CANCEL_OPTION, null);
+                	    	System.exit(0);
+            			}
+            		}
             	    /*
             	     * Checks if the cell clicked is a mine
             	     */
@@ -110,11 +111,12 @@ public class MyMouseAdapter extends MouseAdapter {
             	     */
             	    if (myPanel.colorArray[gridX][gridY].equals(NOT_REVEALED) && !Main.getMines().contains(clickedCell)) {
             		    myPanel.revealAdjacent(gridX, gridY);
-            		    //myPanel.colorArray[gridX][gridY] = REVEALED;
+            		    myPanel.colorArray[gridX][gridY] = REVEALED;
             		    myPanel.repaint();
             		}
             	}
             	
+            
             	 /*
             	  * TODO Win screen shows up depending on the number of times the revealAdjacent method is called
             	  * 

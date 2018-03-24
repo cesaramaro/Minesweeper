@@ -21,6 +21,15 @@ public class MyPanel extends JPanel {
 	private final int CROSS_HEIGHT = 24;
 	private final int CELL_CENTER = INNER_CELL_SIZE / 2;
 	
+	public int smileyX = 140;
+	public int smileyY = 310;
+	public int smileyCenterX = smileyX +15;
+	public int smileyCenterY = smileyY +15;
+	
+	public boolean happiness = true;
+	public boolean victory = false;
+	public boolean defeat = false;
+	
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
@@ -29,6 +38,8 @@ public class MyPanel extends JPanel {
 	public int MinesCloseby[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int countTotal = 0;
 	static public Mines Mines = new Mines();
+	
+	
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -110,7 +121,6 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
-	
 	// This method helps to find the adjacent boxes that don't have a mine.
 	// It is partially implemented since the verify hasn't been discussed in class
 	// Verify that the coordinates in the parameters are valid.
