@@ -5,9 +5,6 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -103,9 +100,8 @@ public class MyMouseAdapter extends MouseAdapter {
                     JOptionPane.showMessageDialog(null, "YOU LOSE.", "GAMEOVER", JOptionPane.OK_CANCEL_OPTION, null);
                     status = GameStatus.GAME_OVER;
                     System.exit(0);
-                    // TODO => Make buttons work (Play again, exit) 
-                    // TODO Fix => Takes longer for mines to appear because of the JOptionPane
-                    //JOptionPane.showOptionDialog(null, "Would you like to play again?", "GAME OVER!!", JOptionPane.DEFAULT_OPTION, JOptionPane.CLOSED_OPTION, null, loseOptions, loseOptions[0]);
+                    // TODO CHECK
+                    // TODO => Make buttons work (Play again, exit)
                     break;
             	    }
             	    
