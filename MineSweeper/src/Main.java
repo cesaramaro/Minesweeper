@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Main {
     
@@ -14,7 +15,7 @@ public class Main {
 		JFrame myFrame = new JFrame("MineSweeper");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myFrame.setLocation(400, 150);
-		myFrame.setSize(318, 340);
+		myFrame.setSize(328, 360);
 		MyPanel myPanel = new MyPanel();
 		myFrame.add(myPanel);
 
@@ -23,7 +24,11 @@ public class Main {
 
 		myFrame.setResizable(false);
 		myFrame.setVisible(true);
-	}
+		
+		}
+	
+	
+	
 	
     /**
      * Generate mines and add them to a list

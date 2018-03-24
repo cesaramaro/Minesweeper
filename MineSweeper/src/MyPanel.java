@@ -15,8 +15,8 @@ public class MyPanel extends JPanel {
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 9;
 	private final int NUMBER_SIZE = 20;
-	private final int MINE_WIDTH = 20;
-	private final int MINE_HEIGHT = 20;
+	private final int MINE_WIDTH = 18;
+	private final int MINE_HEIGHT = 18;
 	private final int CROSS_WIDTH = 4;
 	private final int CROSS_HEIGHT = 24;
 	private final int CELL_CENTER = INNER_CELL_SIZE / 2;
@@ -86,7 +86,17 @@ public class MyPanel extends JPanel {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				if ((MinesCloseby[x][y] != 0) && colorArray[x][y] != MyMouseAdapter.MINE_COLOR) {
 					int total = MinesCloseby[x][y];
-					g.setColor(getNumberColor(total));
+					if(total == 1){
+						g.setColor(Color.BLUE);
+					}else if(total == 2){
+						g.setColor(Color.RED);
+					}else if(total == 3){
+						g.setColor(Color.YELLOW);
+					}else if(total == 4){
+						g.setColor(Color.GREEN);
+					}else{
+						g.setColor(Color.CYAN);
+					}
 					g.setFont(new Font("Arial", Font.BOLD, NUMBER_SIZE));
 					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 10, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 25);
 				}
@@ -101,29 +111,6 @@ public class MyPanel extends JPanel {
 		}
 	}
 	
-	/*
-	 * Gets a color based on the amount of mines surrounding the cell
-	 * @param int mines amount
-	 * @return Color
-	 */
-    private Color getNumberColor(int total) {
-        Color color = null;
-        switch (total) {
-            case 1:
-                color = Color.BLUE;
-                break;
-            case 2:
-                color = new Color(0x00A86B);
-                break;
-            case 3:
-                color = Color.RED;
-                break;
-            default:
-                color = Color.RED;
-                break;
-        }
-        return color;
-    }
 	// This method helps to find the adjacent boxes that don't have a mine.
 	// It is partially implemented since the verify hasn't been discussed in class
 	// Verify that the coordinates in the parameters are valid.
@@ -150,6 +137,7 @@ public class MyPanel extends JPanel {
 		}
 		repaint();
 	}
+
 	
 	//Getters
 	public int getGridX(int x, int y) {
@@ -196,4 +184,5 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
+
 }

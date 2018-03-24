@@ -22,7 +22,7 @@ public class MyMouseAdapter extends MouseAdapter {
     GameStatus status = GameStatus.PLAYING;
     Mines Mines = new Mines();
     ArrayList<Point> minesList = Main.getMines();
-    Object[] loseOptions = { "Play Again", "Exit" };
+    Object[] Options = { "Play Again", "Exit" };
     
     public void mousePressed(MouseEvent e) {
         Component c = e.getComponent();
@@ -83,6 +83,13 @@ public class MyMouseAdapter extends MouseAdapter {
         switch (e.getButton()) {
             case 1:     //Left mouse button
             	if ((gridX >= 0) && (gridY >= 0) && (status == GameStatus.PLAYING)) {
+            		//TODO fix so when it wins it ends
+//            		if(!myPanel.colorArray[gridX][gridY].equals(MINE_COLOR)){
+//            			if(myPanel.countTotal >= 76){		
+//            				JOptionPane.showMessageDialog(null, "YOU WIN!!", "GAMEOVER", JOptionPane.OK_CANCEL_OPTION, null);
+//                	    	System.exit(0);
+//            			}
+//            		}
             	    /*
             	     * Checks if the cell clicked is a mine
             	     */
@@ -93,13 +100,15 @@ public class MyMouseAdapter extends MouseAdapter {
             	        }
                     myPanel.colorArray[gridX][gridY] = Color.GRAY;
                     myPanel.repaint();
+                    JOptionPane.showMessageDialog(null, "YOU LOSE.", "GAMEOVER", JOptionPane.OK_CANCEL_OPTION, null);
                     status = GameStatus.GAME_OVER;
+                    System.exit(0);
                     // TODO => Make buttons work (Play again, exit) 
                     // TODO Fix => Takes longer for mines to appear because of the JOptionPane
                     //JOptionPane.showOptionDialog(null, "Would you like to play again?", "GAME OVER!!", JOptionPane.DEFAULT_OPTION, JOptionPane.CLOSED_OPTION, null, loseOptions, loseOptions[0]);
                     break;
             	    }
-
+            	    
             	    /*
             	     * If it's not a mine or already revealed, reveal nearby cells
             	     */
