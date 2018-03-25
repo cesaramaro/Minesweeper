@@ -90,7 +90,7 @@ public class MyMouseAdapter extends MouseAdapter {
             	    status = GameStatus.PLAYING;
                     //TODO fix so when it wins it ends
                   if(!minesList.contains(clickedCell)) {
-                      if(myPanel.countTotal == 71 && (gridX >= 0) && (gridY >= 0) && (gridX <= 8) && (gridY <= 8) ){
+                      if(myPanel.countTotal == 71){
                     	  status = GameStatus.WON;
                           showWinWindow(myFrame);
                       }
