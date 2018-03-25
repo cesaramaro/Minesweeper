@@ -29,12 +29,12 @@ public class Main {
      * Generate mines and add them to a list
      */
     private static void generateMines() {
+        mineList.clear();
         Random generator = new Random();
         int minesAmount = 0;
         
         while (minesAmount < MAX_MINES) {
             Point newMine = new Point(generator.nextInt(9), generator.nextInt(9));
-            
             while (mineList.contains(newMine)) {
                 newMine.setLocation(generator.nextInt(9), generator.nextInt(9));
             }

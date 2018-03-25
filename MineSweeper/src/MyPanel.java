@@ -15,11 +15,20 @@ public class MyPanel extends JPanel {
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 9;
 	private final int NUMBER_SIZE = 20;
-	private final int MINE_WIDTH = 20;
-	private final int MINE_HEIGHT = 20;
+	private final int MINE_WIDTH = 18;
+	private final int MINE_HEIGHT = 18;
 	private final int CROSS_WIDTH = 4;
 	private final int CROSS_HEIGHT = 24;
 	private final int CELL_CENTER = INNER_CELL_SIZE / 2;
+	
+	public int smileyX = 140;
+	public int smileyY = 310;
+	public int smileyCenterX = smileyX + 15;
+	public int smileyCenterY = smileyY + 15;  
+	
+	public boolean happiness = true;
+	public boolean victory = false;
+	public boolean defeat = false;
 	
 	public int x = -1;
 	public int y = -1;
@@ -29,6 +38,7 @@ public class MyPanel extends JPanel {
 	public int MinesCloseby[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int countTotal = 0;
 	static public Mines Mines = new Mines();
+	
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -41,7 +51,7 @@ public class MyPanel extends JPanel {
 		}
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The 9x9 grid
 			for (int y = 0; y < TOTAL_ROWS; y++) {
-				colorArray[x][y] = Color.WHITE;
+				colorArray[x][y] = MyMouseAdapter.NOT_REVEALED;
 				MinesCloseby[x][y] = 0;
 			}
 		}
@@ -60,7 +70,7 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor( new Color(0xB57EDC));
+		g.setColor(new Color(0xB57EDC));
 		g.fillRect(x1, y1, width + 1, height + 1);
 
 		//Draw the grid
@@ -90,8 +100,8 @@ public class MyPanel extends JPanel {
 					g.setFont(new Font("Arial", Font.BOLD, NUMBER_SIZE));
 					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 10, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 25);
 				}
-				else if ((MinesCloseby[x][y] == 0) && (colorArray[x][y] == MyMouseAdapter.MINE_CELL_COLOR)) {
-                    Ellipse2D.Double mineCircle = new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1) + CELL_CENTER), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER), MINE_WIDTH, MINE_HEIGHT);
+                else if ((MinesCloseby[x][y] == 0) && ((colorArray[x][y] == MyMouseAdapter.MINE_CELL_COLOR) || colorArray[x][y] == MyMouseAdapter.CLICKED_MINE_COLOR)) {
+                    Ellipse2D.Double mineCircle = new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 1), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 1), MINE_WIDTH, MINE_HEIGHT);
                     g2.setPaint(MyMouseAdapter.MINE_COLOR);
                     g2.fill(mineCircle);
                     g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), CROSS_WIDTH, CROSS_HEIGHT);
@@ -130,7 +140,7 @@ public class MyPanel extends JPanel {
 	// Also verifies if there are any mines around the x,y coordinate
 	public void revealAdjacent(int x, int y) {
 		if ((x < 0) || (y < 0) || (x >= 9) || (y >= 9)) { return; }
-		if (Mines.isMine(x, y)){ return; }
+		if (Mines.isMine(x, y)) { return; }
 		if (Mines.hasMinesNearby(x, y)) {
 			int counter = Mines.getMinesNearbyCount(x, y);
 			colorArray[x][y] = MyMouseAdapter.REVEALED;
