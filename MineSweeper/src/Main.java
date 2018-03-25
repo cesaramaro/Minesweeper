@@ -14,16 +14,14 @@ public class Main {
 		JFrame myFrame = new JFrame("MineSweeper");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myFrame.setLocation(400, 150);
-		myFrame.setSize(328, 360);
+		myFrame.setSize(322, 342);
 		MyPanel myPanel = new MyPanel();
 		myFrame.add(myPanel);
 
 		MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
 		myFrame.addMouseListener(myMouseAdapter);
-
 		myFrame.setResizable(false);
 		myFrame.setVisible(true);
-		
 		}
 	
     /**
