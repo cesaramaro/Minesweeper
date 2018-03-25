@@ -25,7 +25,7 @@ public class MyMouseAdapter extends MouseAdapter {
     Mines mines = new Mines();
     Main main = new Main();
     ArrayList<Point> minesList = Main.getMines();
-    Object[] loseOptions = { "Play Again", "Exit" };
+    Object[] loseOptions = { "Exit", "Play Again" };
     
     public void mousePressed(MouseEvent e) {
         Component c = e.getComponent();
@@ -103,12 +103,8 @@ public class MyMouseAdapter extends MouseAdapter {
             	        }
                     myPanel.colorArray[gridX][gridY] = CLICKED_MINE_COLOR;
                     myPanel.repaint();
-                    
-                    //JOptionPane.showMessageDialog(null, "YOU LOSE.", "GAMEOVER", JOptionPane.OK_CANCEL_OPTION, null);
-                    //JOptionPane.showOptionDialog(null, "You lost :(\nBetter luck next time!", "GAME OVER!!", JOptionPane.DEFAULT_OPTION, JOptionPane.CLOSED_OPTION, null, loseOptions, loseOptions[0]);
                     showLoseWindow(myFrame);
                     status = GameStatus.GAME_OVER;
-                    // TODO => Make buttons work (Play again, exit) 
                     break;
             	    }
 
@@ -153,11 +149,11 @@ public class MyMouseAdapter extends MouseAdapter {
         
         Object selectedValue = pane.getValue();
         
-        if (selectedValue.equals("Play Again")) {
+        if (selectedValue.equals(loseOptions[1])) {
             myFrame.dispose();
             Main.main(null);
         }
-        else if (selectedValue.equals("Exit")) {
+        else if (selectedValue.equals(loseOptions[0])) {
             System.exit(0);
         }
     }
