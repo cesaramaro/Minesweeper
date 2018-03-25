@@ -62,7 +62,7 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(new Color(0xB57EDC));
+		g.setColor(new Color(0x40E0D0));
 		g.fillRect(x1, y1, width + 1, height + 1);
 
 		//Draw the grid

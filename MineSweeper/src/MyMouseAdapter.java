@@ -26,6 +26,7 @@ public class MyMouseAdapter extends MouseAdapter {
     Main main = new Main();
     ArrayList<Point> minesList = Main.getMines();
     Object[] loseOptions = { "Exit", "Play Again" };
+    Object[] winOptions = { "Exit", "Play Again" };
     
     public void mousePressed(MouseEvent e) {
         Component c = e.getComponent();
@@ -89,9 +90,9 @@ public class MyMouseAdapter extends MouseAdapter {
             	    status = GameStatus.PLAYING;
                     //TODO fix so when it wins it ends
                   if(!minesList.contains(clickedCell)) {
-                      if(myPanel.countTotal == 71){       
-                          JOptionPane.showMessageDialog(null, "YOU WIN!!", "GAMEOVER", JOptionPane.OK_CANCEL_OPTION, null);
-                          System.exit(0);
+                      if(myPanel.countTotal == 71 && (gridX >= 0) && (gridY >= 0) && (gridX <= 8) && (gridY <= 8) ){
+                    	  status = GameStatus.WON;
+                          showWinWindow(myFrame);
                       }
                   }
             	    /*
@@ -102,10 +103,10 @@ public class MyMouseAdapter extends MouseAdapter {
             	        for (Point mine : minesList) {
             	            myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_CELL_COLOR; 
             	        }
-                    myPanel.colorArray[gridX][gridY] = CLICKED_MINE_COLOR;
-                    myPanel.repaint();
-                    showLoseWindow(myFrame);
-                    status = GameStatus.GAME_OVER;
+//                    myPanel.colorArray[gridX][gridY] = CLICKED_MINE_COLOR;
+//                    myPanel.repaint();
+//                    showLoseWindow(myFrame);
+//                    status = GameStatus.GAME_OVER;
                     break;
             	    }
 
@@ -158,4 +159,24 @@ public class MyMouseAdapter extends MouseAdapter {
             System.exit(0);
         }
     }
+    
+    public void showWinWindow(JFrame myFrame){
+    	 JOptionPane pane = new JOptionPane();
+         pane.setMessage("Congratulations!!\n You Won :)");
+         pane.setOptions(winOptions);
+         
+         JDialog dialog = pane.createDialog(null, "Game over");
+         dialog.setVisible(true);
+         
+         Object selectedValue = pane.getValue();
+         
+         if (selectedValue.equals(winOptions[1])) {
+             myFrame.dispose();
+             Main.main(null);
+         }
+         else if (selectedValue.equals(winOptions[0])) {
+             System.exit(0);
+         }
+    }
+    
 }
