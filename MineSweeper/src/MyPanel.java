@@ -123,13 +123,16 @@ public class MyPanel extends JPanel {
                 color = Color.BLUE;
                 break;
             case 2:
-                color = new Color(0x00A86B);
+                color = Color.RED;
                 break;
             case 3:
-                color = Color.RED;
+                color = Color.YELLOW;
                 break;
+            case 4:
+            	color = Color.GREEN;
+            	break;
             default:
-                color = Color.RED;
+                color = Color.CYAN;
                 break;
         }
         return color;
