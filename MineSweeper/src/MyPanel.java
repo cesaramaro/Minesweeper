@@ -21,21 +21,13 @@ public class MyPanel extends JPanel {
 	private final int CROSS_HEIGHT = 24;
 	private final int CELL_CENTER = INNER_CELL_SIZE / 2;
 	
-	public int smileyX = 140;
-	public int smileyY = 310;
-	public int smileyCenterX = smileyX + 15;
-	public int smileyCenterY = smileyY + 15;  
-	
-	public boolean happiness = true;
-	public boolean victory = false;
-	public boolean defeat = false;
-	
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int MinesCloseby[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public int flagsNearby[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int countTotal = 0;
 	static public Mines Mines = new Mines();
 	
@@ -106,7 +98,18 @@ public class MyPanel extends JPanel {
                     g2.fill(mineCircle);
                     g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), CROSS_WIDTH, CROSS_HEIGHT);
                     g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), CROSS_HEIGHT, CROSS_WIDTH);
-                }	
+                }
+                else if(flagsNearby[x][y] == 0 && (colorArray[x][y] == MyMouseAdapter.FLAG_COLOR) ){
+                	g2.setColor(Color.BLACK);
+                	g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 14), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 4), 4, 18);
+            		g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 11), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 18), 10, 4);
+            		g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 10), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 20), 12, 4);
+            		g.setColor(Color.RED);
+            		g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), 15, 10);
+            		g.setColor(Color.BLACK);
+            		g.drawRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), 15, 10);
+            		g.drawRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 3), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 3), 13, 8);
+                }
 			}
 		}
 	}
