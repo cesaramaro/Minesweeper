@@ -14,7 +14,7 @@ public class Main {
 		JFrame myFrame = new JFrame("MineSweeper");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myFrame.setLocation(400, 150);
-		myFrame.setSize(318, 340);
+		myFrame.setSize(328, 360);
 		MyPanel myPanel = new MyPanel();
 		myFrame.add(myPanel);
 
@@ -23,15 +23,16 @@ public class Main {
 
 		myFrame.setResizable(false);
 		myFrame.setVisible(true);
-	}
+		
+		}
 	
     /**
      * Generate mines and add them to a list
      */
     private static void generateMines() {
-        mineList.clear();
         Random generator = new Random();
         int minesAmount = 0;
+        mineList.clear();
         
         while (minesAmount < MAX_MINES) {
             Point newMine = new Point(generator.nextInt(9), generator.nextInt(9));

@@ -88,7 +88,7 @@ public class MyMouseAdapter extends MouseAdapter {
             	if ((gridX >= 0) && (gridY >= 0) && (status == GameStatus.PLAYING)) {
                     //TODO fix so when it wins it ends
                   if(!minesList.contains(clickedCell)) {
-                      if(myPanel.countTotal >= 71){       
+                      if(myPanel.countTotal == 71){       
                           JOptionPane.showMessageDialog(null, "YOU WIN!!", "GAMEOVER", JOptionPane.OK_CANCEL_OPTION, null);
                           System.exit(0);
                       }
