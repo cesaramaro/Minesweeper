@@ -17,10 +17,10 @@ public class MyMouseAdapter extends MouseAdapter {
     public static final Color REVEALED = Color.LIGHT_GRAY;
     public static final Color CLICKED_MINE_COLOR = new Color(0xDC143C);
     public static final Color NOT_REVEALED = Color.WHITE;
-    private final Color FLAG_COLOR = Color.RED;
+    public static final Color FLAG_COLOR = Color.RED;
     
-    public enum GameStatus { GAME_OVER, WON, PLAYING }
-    GameStatus status = GameStatus.PLAYING;
+    private enum GameStatus { GAME_OVER, WON, PLAYING, NEW_GAME }
+    GameStatus status = GameStatus.NEW_GAME;
     
     Mines mines = new Mines();
     Main main = new Main();
@@ -85,7 +85,8 @@ public class MyMouseAdapter extends MouseAdapter {
 
         switch (e.getButton()) {
             case 1:     //Left mouse button
-            	if ((gridX >= 0) && (gridY >= 0) && (status == GameStatus.PLAYING)) {
+            	if ((gridX >= 0) && (gridY >= 0) && ((status == GameStatus.PLAYING) || (status == GameStatus.NEW_GAME))) {
+            	    status = GameStatus.PLAYING;
                     //TODO fix so when it wins it ends
                   if(!minesList.contains(clickedCell)) {
                       if(myPanel.countTotal == 71){       

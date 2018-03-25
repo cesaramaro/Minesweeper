@@ -129,8 +129,8 @@ public class MyPanel extends JPanel {
                 color = Color.YELLOW;
                 break;
             case 4:
-            	color = Color.GREEN;
-            	break;
+            	    color = Color.GREEN;
+            	    break;
             default:
                 color = Color.CYAN;
                 break;
@@ -144,6 +144,7 @@ public class MyPanel extends JPanel {
 	public void revealAdjacent(int x, int y) {
 		if ((x < 0) || (y < 0) || (x >= 9) || (y >= 9)) { return; }
 		if (Mines.isMine(x, y)) { return; }
+		if (colorArray[x][y] == MyMouseAdapter.FLAG_COLOR) { return; }
 		if (Mines.hasMinesNearby(x, y)) {
 			int counter = Mines.getMinesNearbyCount(x, y);
 			colorArray[x][y] = MyMouseAdapter.REVEALED;
