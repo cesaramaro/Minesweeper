@@ -17,7 +17,7 @@ public class MyMouseAdapter extends MouseAdapter {
     public static final Color REVEALED = Color.LIGHT_GRAY;
     public static final Color CLICKED_MINE_COLOR = new Color(0xDC143C);
     public static final Color NOT_REVEALED = Color.WHITE;
-    public static final Color FLAG_COLOR = new Color(0xC0C0C0);//Silver
+    public static final Color FLAG_COLOR = new Color(0xE0B0FF); //Lavender
     
     private enum GameStatus { GAME_OVER, WON, PLAYING, NEW_GAME }
     GameStatus status = GameStatus.NEW_GAME;
