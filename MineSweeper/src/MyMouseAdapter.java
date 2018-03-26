@@ -96,6 +96,7 @@ public class MyMouseAdapter extends MouseAdapter {
             	    if (myPanel.colorArray[gridX][gridY].equals(NOT_REVEALED) && !Main.getMines().contains(clickedCell)) {
             	        myPanel.revealAdjacent(gridX, gridY);
             	        if (myPanel.countTotal > 70) {
+            	        	status = GameStatus.WON;
             	            showWindow(myFrame, "Congratulations!!\nYou won :)");
             	            myPanel.repaint();
             	            break;
@@ -117,8 +118,8 @@ public class MyMouseAdapter extends MouseAdapter {
             	        }
                     myPanel.colorArray[gridX][gridY] = CLICKED_MINE_COLOR;
                     myPanel.repaint();
-                    showWindow(myFrame, "You lost :(\nBetter luck next time!");
                     status = GameStatus.GAME_OVER;
+                    showWindow(myFrame, "You lost :(\nBetter luck next time!");
                     break;
             	    }
             	}

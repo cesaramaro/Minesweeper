@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.geom.Ellipse2D;
+import java.util.Date;
 import java.util.Random;
 import javax.swing.JPanel;
 
@@ -20,6 +21,15 @@ public class MyPanel extends JPanel {
 	private final int CROSS_WIDTH = 4;
 	private final int CROSS_HEIGHT = 24;
 	private final int CELL_CENTER = INNER_CELL_SIZE / 2;
+	
+	Date startDate = new Date();
+	public int sec = 0;
+	
+	public int timeX = 237;
+	public int timeY = 313;
+	public int flagX = 10;
+	public int flagY = 313;
+	
 	
 	public int x = -1;
 	public int y = -1;
@@ -112,6 +122,31 @@ public class MyPanel extends JPanel {
                 }
 			}
 		}
+		
+		//time 
+		g.setColor(Color.BLACK);
+		g.fillRect(timeX, timeY, 70, 33);
+		sec = (int)((new Date().getTime()- startDate.getTime())/1000);
+		if(sec > 999){
+			sec = 999;
+		}
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", Font.PLAIN, 35));
+		if (sec < 10){
+			g.drawString("00" + Integer.toString(sec), timeX + 10, timeY + 28);
+		}else if (sec < 100){
+			g.drawString("0" + Integer.toString(sec), timeX + 10, timeY + 28);
+		}else if (sec < 1000){
+			g.drawString(Integer.toString(sec), timeX + 10, timeY + 28);
+		}
+		repaint();
+		
+		
+		//flag
+		g.setColor(Color.BLACK);
+		g.fillRect(flagX, flagY, 70, 33);
+		
+		
 	}
 	
 	/*
