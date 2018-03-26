@@ -132,19 +132,21 @@ public class MyPanel extends JPanel {
 		 */
 		g.setColor(Color.BLACK);
 		g.fillRect(timeX, timeY, 70, 33);
-		sec = (int) ((new Date().getTime()- startDate.getTime()) / 1000);
-		if(sec > 999) {
-			sec = 999;
-		}
-		g.setColor(Color.WHITE);
-		g.setFont(new Font("Arial", Font.PLAIN, 35));
-		if (sec < 10) {
-			g.drawString("00" + Integer.toString(sec), timeX + 10, timeY + 28);
-		} else if (sec < 100) {
-			g.drawString("0" + Integer.toString(sec), timeX + 10, timeY + 28);
-		} else if (sec < 1000) {
-			g.drawString(Integer.toString(sec), timeX + 10, timeY + 28);
-		}
+		    if (MyMouseAdapter.status != MyMouseAdapter.GameStatus.GAME_OVER) {
+		        sec = (int) ((new Date().getTime()- startDate.getTime()) / 1000);
+		    } 
+        	    if(sec > 999) {
+        	        sec = 999;
+        	    }
+        	    g.setColor(Color.WHITE);
+        	    g.setFont(new Font("Arial", Font.PLAIN, 35));
+        	    if (sec < 10) {
+        	        g.drawString("00" + Integer.toString(sec), timeX + 10, timeY + 28);
+        	    } else if (sec < 100) {
+        	        g.drawString("0" + Integer.toString(sec), timeX + 10, timeY + 28);
+        	    } else if (sec < 1000) {
+        	        g.drawString(Integer.toString(sec), timeX + 10, timeY + 28);
+        	    }
 		repaint();
 		
 		/*

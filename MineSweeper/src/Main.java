@@ -10,6 +10,7 @@ public class Main {
     private static ArrayList<Point> mineList = new ArrayList<Point>();
     
 	public static void main(String[] args) {
+	    MyMouseAdapter.status = MyMouseAdapter.GameStatus.NEW_GAME;
 	    generateMines();
 		JFrame myFrame = new JFrame("MineSweeper");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -21,8 +21,8 @@ public class MyMouseAdapter extends MouseAdapter {
     public static final Color FLAG_COLOR = new Color(0x708090); //Slate gray
     public static final Color CORRECT_FLAG_COLOR = new Color(0x50C878); //Emerald
     
-    private enum GameStatus { GAME_OVER, WON, PLAYING, NEW_GAME }
-    GameStatus status = GameStatus.NEW_GAME;
+    public static enum GameStatus { GAME_OVER, PLAYING, NEW_GAME }
+    public static GameStatus status = GameStatus.NEW_GAME;
     
     Mines mines = new Mines();
     Main main = new Main();
@@ -96,7 +96,7 @@ public class MyMouseAdapter extends MouseAdapter {
             	    if (myPanel.colorArray[gridX][gridY].equals(NOT_REVEALED) && !Main.getMines().contains(clickedCell)) {
             	        myPanel.revealAdjacent(gridX, gridY);
             	        if (myPanel.countTotal > 70) {
-            	        	status = GameStatus.WON;
+            	        	status = GameStatus.GAME_OVER;
             	            showWindow(myFrame, "Congratulations!!\nYou won :)");
             	            myPanel.repaint();
             	            break;
