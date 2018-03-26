@@ -2,10 +2,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Mines {
-
-	// Constructor
+    Main main = new Main();
+    
+	//Constructor
     public Mines() {
-        // Do nothing
+        //Do nothing
     }
     
     /*
@@ -15,7 +16,7 @@ public class Mines {
      * @return boolean
      */
     public boolean isMine(int x, int y) {
-        for (Point coords : Main.getMines()) {
+        for (Point coords : main.getMines()) {
             if ((coords.getX() == x) && (coords.getY() == y)) {
                 return true;
             } else {
@@ -26,46 +27,12 @@ public class Mines {
     }
     
     /*
-     * Get an ArrayList of Points of mines nearby
-     * @param x coordinate to verify
-     * @param y coordinate to verify
-     * @return Point
-     */
-    
-    // TODO Shorten
-    public ArrayList<Point> getMinesNearby(int x, int y) {
-        
-        Point leftCell = new Point(x-1, y);
-        Point rightCell = new Point(x+1, y);
-        Point topCell = new Point(x, y-1);
-        Point bottomCell = new Point(x, y+1);
-        ArrayList<Point> minesNearby = new ArrayList<Point>();
-        
-        if (hasMinesNearby(x, y)) {
-            for (Point mine : Main.getMines()) {
-                if (mine.equals(leftCell)) {
-                    minesNearby.add(mine);
-                } else if (mine.equals(rightCell)) {
-                    minesNearby.add(mine);
-                } else if (mine.equals(topCell)) {
-                    minesNearby.add(mine);
-                } else if (mine.equals(bottomCell)) {
-                    minesNearby.add(mine);
-                } else {
-                    continue;
-                }
-            }
-        }
-        return minesNearby;
-    }
-    
-    /*
      * Checks if there are any mines nearby
      * @return boolean
      */
-    // TODO Shorten
     public boolean hasMinesNearby(int x, int y) {
-        ArrayList<Point> mines = Main.getMines();
+        ArrayList<Point> mines = main.getMines();
+        ArrayList<Point> cells = new ArrayList<Point>();
         Point leftCell = new Point(x-1, y);
         Point rightCell = new Point(x+1, y);
         Point topCell = new Point(x, y-1);
@@ -74,20 +41,22 @@ public class Mines {
         Point topRight = new Point(x+1, y-1);
         Point bottomLeft = new Point(x-1, y+1);
         Point bottomRight = new Point(x+1, y+1);
+        cells.add(leftCell);
+        cells.add(rightCell);
+        cells.add(topCell);
+        cells.add(bottomCell);
+        cells.add(topLeft);
+        cells.add(topRight);
+        cells.add(bottomLeft);
+        cells.add(bottomRight);
         
-        if (mines.contains(leftCell) 
-                || mines.contains(rightCell)
-                || mines.contains(topCell) 
-                || mines.contains(bottomCell)
-                || mines.contains(topLeft)
-                || mines.contains(topRight)
-                || mines.contains(bottomLeft)
-                || mines.contains(bottomRight)) {
-            return true;
-        } else {
+        for (Point cell : cells) {
+            if (mines.contains(cell)) {
+                return true;
+            } else { continue; }
+        }
         return false;
         }
-    }
 
     /*
      * Checks how many mines there are nearby

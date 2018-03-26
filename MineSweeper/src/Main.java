@@ -16,10 +16,11 @@ public class Main {
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myFrame.setLocation(400, 150);
 		myFrame.setSize(322, 380);
+		
 		MyPanel myPanel = new MyPanel();
 		myFrame.add(myPanel);
-
-		MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
+		
+        MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
 		myFrame.addMouseListener(myMouseAdapter);
 		myFrame.setResizable(false);
 		myFrame.setVisible(true);
@@ -42,15 +43,13 @@ public class Main {
             minesAmount++;
             
         }
-        System.out.println(mineList);
     }
     
     /*
      * Returns the list of mines
+     * @return ArrayList<Point>
      */
-    public static ArrayList<Point> getMines() {
+    public ArrayList<Point> getMines() {
         return mineList;
-        
     }
-	
 }

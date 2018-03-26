@@ -26,7 +26,7 @@ public class MyMouseAdapter extends MouseAdapter {
     
     Mines mines = new Mines();
     Main main = new Main();
-    ArrayList<Point> minesList = Main.getMines();
+    ArrayList<Point> mineList = main.getMines();
     Object[] options = { "Play Again", "Exit" };
     
     public void mousePressed(MouseEvent e) {
@@ -87,42 +87,44 @@ public class MyMouseAdapter extends MouseAdapter {
 
         switch (e.getButton()) {
             case 1:     //Left mouse button
-            	if ((gridX >= 0) && (gridY >= 0) && ((status == GameStatus.PLAYING) || (status == GameStatus.NEW_GAME))) {
-            	    status = GameStatus.PLAYING;
-            	    /*
-            	     * If it's not a mine or already revealed, reveal nearby cells
-            	     * If the revealed cells amount is greater than 70, show the win pop-up
-            	     */
-            	    if (myPanel.colorArray[gridX][gridY].equals(NOT_REVEALED) && !Main.getMines().contains(clickedCell)) {
-            	        myPanel.revealAdjacent(gridX, gridY);
-            	        if (myPanel.countTotal > 70) {
-            	        	status = GameStatus.GAME_OVER;
-            	            showWindow(myFrame, "Congratulations!!\nYou won :)");
-            	            myPanel.repaint();
-            	            break;
-            	        }
-            	        myPanel.repaint();
+            	if ((gridX >= 0) && (gridY >= 0)) {
+            	    if ((status == GameStatus.NEW_GAME) || (status == GameStatus.PLAYING)) {
+            	        status = GameStatus.PLAYING;
+                	    /*
+                	     * If it's not a mine or already revealed, reveal nearby cells
+                	     * If the revealed cells amount is greater than 70, show the win pop-up
+                	     */
+                	    if (myPanel.colorArray[gridX][gridY].equals(NOT_REVEALED) && !mineList.contains(clickedCell)) {
+                	        myPanel.revealAdjacent(gridX, gridY);
+                	        if (myPanel.countTotal > 70) {
+                	        	    status = GameStatus.GAME_OVER;
+                	            showWindow(myFrame, "Congratulations!!\nYou won :)");
+                	            myPanel.repaint();
+                	            break;
+                	        }
+                	        myPanel.repaint();
+                	    }
+    
+                	    /*
+                	     * Checks if the cell clicked is a mine
+                	     */
+                	    if (mineList.contains(clickedCell) && !myPanel.colorArray[gridX][gridY].equals(FLAG_COLOR)) {
+                         status = GameStatus.GAME_OVER;
+                	        // Reveal mines
+                	        for (Point mine : mineList) {
+                	            if(myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] == FLAG_COLOR) {
+                	                myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = CORRECT_FLAG_COLOR;
+                	            } else {
+                	                myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_CELL_COLOR; 
+                	            }
+                	        }
+                        myPanel.colorArray[gridX][gridY] = CLICKED_MINE_COLOR;
+                        myPanel.repaint();
+                        showWindow(myFrame, "You lost :(\nBetter luck next time!");
+                        break;
+                        }
+                	    }
             	    }
-
-            	    /*
-            	     * Checks if the cell clicked is a mine
-            	     */
-            	    if (minesList.contains(clickedCell) && !myPanel.colorArray[gridX][gridY].equals(FLAG_COLOR)) {
-            	        // Reveal mines
-            	        for (Point mine : minesList) {
-            	            if(myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] == FLAG_COLOR) {
-            	                myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = CORRECT_FLAG_COLOR;
-            	            } else {
-            	                myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_CELL_COLOR; 
-            	            }
-            	        }
-                    myPanel.colorArray[gridX][gridY] = CLICKED_MINE_COLOR;
-                    myPanel.repaint();
-                    status = GameStatus.GAME_OVER;
-                    showWindow(myFrame, "You lost :(\nBetter luck next time!");
-                    break;
-            	    }
-            	}
             	    myPanel.repaint();
                 break;
             case 3:     // Right mouse button
@@ -151,6 +153,7 @@ public class MyMouseAdapter extends MouseAdapter {
                 break;
         }
     }
+    
     /*
      * Shows a window with button options "Play Again" and "Exit"
      * @param String message to be printed out in the window
@@ -173,5 +176,5 @@ public class MyMouseAdapter extends MouseAdapter {
         else if (selectedValue.equals(options[1])) {
             System.exit(0);
         }
-    }    
+    }
 }
