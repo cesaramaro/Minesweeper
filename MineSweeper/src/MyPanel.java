@@ -99,7 +99,7 @@ public class MyPanel extends JPanel {
                     g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), CROSS_WIDTH, CROSS_HEIGHT);
                     g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), CROSS_HEIGHT, CROSS_WIDTH);
                 }
-                else if(flagsNearby[x][y] == 0 && (colorArray[x][y] == MyMouseAdapter.FLAG_COLOR)) {
+                else if(flagsNearby[x][y] == 0 && ((colorArray[x][y] == MyMouseAdapter.FLAG_COLOR) || colorArray[x][y] == MyMouseAdapter.CORRECT_FLAG_COLOR)) {
                 	    g2.setColor(Color.BLACK);
                 	    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 14), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 4), 4, 18);
                 	    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 11), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 18), 10, 4);

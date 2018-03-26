@@ -18,6 +18,7 @@ public class MyMouseAdapter extends MouseAdapter {
     public static final Color CLICKED_MINE_COLOR = new Color(0xDC143C);
     public static final Color NOT_REVEALED = Color.WHITE;
     public static final Color FLAG_COLOR = new Color(0x708090); //Slate gray
+    public static final Color CORRECT_FLAG_COLOR = new Color(0x50C878); //Emerald
     
     private enum GameStatus { GAME_OVER, WON, PLAYING, NEW_GAME }
     GameStatus status = GameStatus.NEW_GAME;
@@ -88,7 +89,7 @@ public class MyMouseAdapter extends MouseAdapter {
             	if ((gridX >= 0) && (gridY >= 0) && ((status == GameStatus.PLAYING) || (status == GameStatus.NEW_GAME))) {
             	    status = GameStatus.PLAYING;
                     //TODO fix so when it wins it ends
-                  if(minesList.contains(clickedCell) && myPanel.countTotal >= 70) {
+                  if(!minesList.contains(clickedCell) && myPanel.countTotal >= 70) {
                       status = GameStatus.WON;
                     	 showWindow(myFrame, "Congratulations!!\nYou won :)");
                       }
@@ -100,7 +101,11 @@ public class MyMouseAdapter extends MouseAdapter {
             	    if (minesList.contains(clickedCell) && !myPanel.colorArray[gridX][gridY].equals(FLAG_COLOR)) {
             	        // Reveal mines
             	        for (Point mine : minesList) {
-            	            myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_CELL_COLOR; 
+            	            if(myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] == FLAG_COLOR) {
+            	                myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = CORRECT_FLAG_COLOR;
+            	            } else {
+            	                myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = MINE_CELL_COLOR; 
+            	            }
             	        }
                     myPanel.colorArray[gridX][gridY] = CLICKED_MINE_COLOR;
                     myPanel.repaint();
