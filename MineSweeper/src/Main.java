@@ -41,7 +41,6 @@ public class Main {
             }
             mineList.add(newMine);
             minesAmount++;
-            
         }
     }
     

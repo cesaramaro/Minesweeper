@@ -98,7 +98,19 @@ public class MyMouseAdapter extends MouseAdapter {
                 	        myPanel.revealAdjacent(gridX, gridY);
                 	        if (myPanel.countTotal > 70) {
                 	        	    status = GameStatus.GAME_OVER;
-                	            showWindow(myFrame, "Congratulations!!\nYou won :)");
+                	        	    int seconds = myPanel.sec;
+                	        	    int minutes = 0;
+                	        	    while (seconds > 60) {
+                	        	        minutes++;
+                	        	        seconds = seconds - 60;
+                	        	    }
+                	        	    if (minutes == 0) {
+                	        	        showWindow(myFrame, "Congratulations!\nYou won in " + seconds + " seconds :)");
+                	        	    } else if (minutes == 1) {
+                	        	        showWindow(myFrame, "Congratulations!\nYou won in " + minutes + " minute and " + seconds + " seconds :)");
+                	        	    } else {
+                	        	        showWindow(myFrame, "Congratulations!\nYou won in " + minutes + " minutes and " + seconds + " seconds :)");
+                	        	    }
                 	            myPanel.repaint();
                 	            break;
                 	        }
