@@ -142,11 +142,20 @@ public class MyPanel extends JPanel {
 		repaint();
 		
 		
+		
 		//flag
 		g.setColor(Color.BLACK);
 		g.fillRect(flagX, flagY, 70, 33);
-		
-		
+		int flags = 10;
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", Font.PLAIN, 35));
+		g.drawString("0" + Integer.toString(flags), flagX + 5, flagY + 28);
+		if(MyMouseAdapter.FLAG_COLOR.equals(flagsNearby)){
+		switch(flags){
+		case 1:
+			g.drawString("00" + Integer.toString(flags - 1), flagX + 5, flagY + 28);
+		}
+		}
 	}
 	
 	/*
