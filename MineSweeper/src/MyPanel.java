@@ -154,7 +154,11 @@ public class MyPanel extends JPanel {
 		g.fillRect(flagX, flagY, 70, 33);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.PLAIN, 35));
-		g.drawString("0" + Integer.toString(flagCount), flagX + 5, flagY + 28);
+		if(flagCount == 10){
+			g.drawString("0" + Integer.toString(flagCount), flagX + 10, flagY + 28);
+		}else if (flagCount < 10){
+			g.drawString("00" + Integer.toString(flagCount), flagX + 10, flagY + 28);
+		}
 	}
 	
 	/*
