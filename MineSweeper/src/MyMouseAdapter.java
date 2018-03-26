@@ -27,7 +27,7 @@ public class MyMouseAdapter extends MouseAdapter {
     Mines mines = new Mines();
     Main main = new Main();
     ArrayList<Point> minesList = Main.getMines();
-    Object[] options = { "Exit", "Play Again" };
+    Object[] options = { "Play Again", "Exit" };
     
     public void mousePressed(MouseEvent e) {
         Component c = e.getComponent();
@@ -128,14 +128,20 @@ public class MyMouseAdapter extends MouseAdapter {
             case 3:     // Right mouse button
                 if ((gridX >= 0) && (gridY >= 0) && (status == GameStatus.PLAYING)) {
                     if (myPanel.colorArray[gridX][gridY].equals(NOT_REVEALED)) {
-                        myPanel.colorArray[gridX][gridY] = FLAG_COLOR;
-                        myPanel.repaint();
+                        if (myPanel.flagCount == 0) {
+                            // Do nothing
+                        } else {
+                            myPanel.flagCount--;
+                            myPanel.colorArray[gridX][gridY] = FLAG_COLOR;
+                            myPanel.repaint();
+                        }
                     } 
                     else if (myPanel.colorArray[gridX][gridY].equals(REVEALED) || myPanel.colorArray[gridX][gridY].equals(MINE_CELL_COLOR)) {
                         // Do Nothing
                     } else {
                         myPanel.colorArray[gridX][gridY] = NOT_REVEALED;
                         myPanel.repaint();
+                        myPanel.flagCount++;
                     }
                 }
                 myPanel.repaint();
@@ -160,11 +166,11 @@ public class MyMouseAdapter extends MouseAdapter {
 
         Object selectedValue = pane.getValue();
         
-        if (selectedValue.equals(options[1])) {
+        if (selectedValue.equals(options[0])) {
             myFrame.dispose();
             Main.main(null);
         }
-        else if (selectedValue.equals(options[0])) {
+        else if (selectedValue.equals(options[1])) {
             System.exit(0);
         }
     }    

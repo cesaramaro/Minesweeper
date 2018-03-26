@@ -30,7 +30,6 @@ public class MyPanel extends JPanel {
 	public int flagX = 10;
 	public int flagY = 313;
 	
-	
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
@@ -39,7 +38,8 @@ public class MyPanel extends JPanel {
 	public int MinesCloseby[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int flagsNearby[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int countTotal = 0;
-	static public Mines Mines = new Mines();
+	public int flagCount = 10;
+	public static Mines Mines = new Mines();
 	
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
@@ -71,12 +71,13 @@ public class MyPanel extends JPanel {
 		int width = x2 - x1;
 		int height = y2 - y1;
 
-		//Paint the background
+		// Paints the background
 		g.setColor(new Color(0x89CFF0));
 		g.fillRect(x1, y1, width + 1, height + 1);
 
-		//Draw the grid
-		//The grid is 9x9
+		/*
+		 * Draws a 9x9 grid
+		 */
 		g.setColor(Color.BLACK);
 		for (int y = 0; y <= TOTAL_ROWS; y++) {
 			g.drawLine(x1 + GRID_X, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)), x1 + GRID_X + ((INNER_CELL_SIZE + 1) * TOTAL_COLUMNS), y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)));
@@ -93,7 +94,10 @@ public class MyPanel extends JPanel {
 					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
 			}
 		}
-		//mines closeby
+		
+		/*
+		 * Draws mines and flags
+		 */
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				if ((MinesCloseby[x][y] != 0) && colorArray[x][y] != MyMouseAdapter.MINE_COLOR) {
@@ -123,34 +127,34 @@ public class MyPanel extends JPanel {
 			}
 		}
 		
-		//time 
+		/*
+		 * Adds timer at the bottom right of the panel
+		 */
 		g.setColor(Color.BLACK);
 		g.fillRect(timeX, timeY, 70, 33);
-		sec = (int)((new Date().getTime()- startDate.getTime())/1000);
-		if(sec > 999){
+		sec = (int) ((new Date().getTime()- startDate.getTime()) / 1000);
+		if(sec > 999) {
 			sec = 999;
 		}
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.PLAIN, 35));
-		if (sec < 10){
+		if (sec < 10) {
 			g.drawString("00" + Integer.toString(sec), timeX + 10, timeY + 28);
-		}else if (sec < 100){
+		} else if (sec < 100) {
 			g.drawString("0" + Integer.toString(sec), timeX + 10, timeY + 28);
-		}else if (sec < 1000){
+		} else if (sec < 1000) {
 			g.drawString(Integer.toString(sec), timeX + 10, timeY + 28);
 		}
 		repaint();
 		
-		
-		
-		//flag
+		/*
+		 * Adds flag counter at the bottom left of the panel
+		 */
 		g.setColor(Color.BLACK);
 		g.fillRect(flagX, flagY, 70, 33);
-		int flags = 10;
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.PLAIN, 35));
-		g.drawString("0" + Integer.toString(flags), flagX + 5, flagY + 28);
-		
+		g.drawString("0" + Integer.toString(flagCount), flagX + 5, flagY + 28);
 	}
 	
 	/*
@@ -179,10 +183,13 @@ public class MyPanel extends JPanel {
         }
         return color;
     }
-	// This method helps to find the adjacent boxes that don't have a mine.
-	// It is partially implemented since the verify hasn't been discussed in class
-	// Verify that the coordinates in the parameters are valid.
-	// Also verifies if there are any mines around the x,y coordinate
+    
+    /*
+     * Reveals adjacent cells that don't have a mine
+     * and paints the amount of mines on the cells nearby
+     * @param int x coordinate
+     * @param int y coordinate
+     */
 	public void revealAdjacent(int x, int y) {
 		if ((x < 0) || (y < 0) || (x >= 9) || (y >= 9)) { return; }
 		if (Mines.isMine(x, y)) { return; }
