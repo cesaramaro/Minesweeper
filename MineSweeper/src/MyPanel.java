@@ -148,7 +148,7 @@ public class MyPanel extends JPanel {
 		if ((x < 0) || (y < 0) || (x >= 9) || (y >= 9)) { return; }
 		if (Mines.isMine(x, y)) { return; }
 		if (colorArray[x][y] == MyMouseAdapter.FLAG_COLOR) { return; }
-		if (Mines.hasMinesNearby(x, y)) {
+		if (Mines.hasMinesNearby(x, y) && colorArray[x][y] != MyMouseAdapter.REVEALED) {
 			int counter = Mines.getMinesNearbyCount(x, y);
 			colorArray[x][y] = MyMouseAdapter.REVEALED;
 			MinesCloseby[x][y] = counter;

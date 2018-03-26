@@ -89,13 +89,20 @@ public class MyMouseAdapter extends MouseAdapter {
             case 1:     //Left mouse button
             	if ((gridX >= 0) && (gridY >= 0) && ((status == GameStatus.PLAYING) || (status == GameStatus.NEW_GAME))) {
             	    status = GameStatus.PLAYING;
-                    //TODO fix so when it wins it ends
-                  if(!minesList.contains(clickedCell) && myPanel.countTotal >= 70) {
-                      status = GameStatus.WON;
-                    	 showWindow(myFrame, "Congratulations!!\nYou won :)");
-                      }
-                  }
-                  
+            	    /*
+            	     * If it's not a mine or already revealed, reveal nearby cells
+            	     * If the revealed cells amount is greater than 70, show the win pop-up
+            	     */
+            	    if (myPanel.colorArray[gridX][gridY].equals(NOT_REVEALED) && !Main.getMines().contains(clickedCell)) {
+            	        myPanel.revealAdjacent(gridX, gridY);
+            	        if (myPanel.countTotal > 70) {
+            	            showWindow(myFrame, "Congratulations!!\nYou won :)");
+            	            myPanel.repaint();
+            	            break;
+            	        }
+            	        myPanel.repaint();
+            	    }
+
             	    /*
             	     * Checks if the cell clicked is a mine
             	     */
@@ -114,15 +121,7 @@ public class MyMouseAdapter extends MouseAdapter {
                     status = GameStatus.GAME_OVER;
                     break;
             	    }
-
-            	    /*
-            	     * If it's not a mine or already revealed, reveal nearby cells
-            	     */
-            	    if (myPanel.colorArray[gridX][gridY].equals(NOT_REVEALED) && !Main.getMines().contains(clickedCell)) {
-            		    myPanel.revealAdjacent(gridX, gridY);
-            		    myPanel.repaint();
-            		}
-        
+            	}
             	    myPanel.repaint();
                 break;
             case 3:     // Right mouse button
