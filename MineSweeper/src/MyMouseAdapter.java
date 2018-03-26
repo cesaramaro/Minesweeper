@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 public class MyMouseAdapter extends MouseAdapter {
 	
@@ -154,8 +155,9 @@ public class MyMouseAdapter extends MouseAdapter {
         pane.setOptions(options);
         
         JDialog dialog = pane.createDialog(null, "Game over");
+        dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dialog.setVisible(true);
-        
+
         Object selectedValue = pane.getValue();
         
         if (selectedValue.equals(options[1])) {
