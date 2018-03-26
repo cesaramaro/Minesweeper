@@ -62,7 +62,7 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(new Color(0x40E0D0));
+		g.setColor(new Color(0x89CFF0));
 		g.fillRect(x1, y1, width + 1, height + 1);
 
 		//Draw the grid
@@ -99,16 +99,16 @@ public class MyPanel extends JPanel {
                     g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), CROSS_WIDTH, CROSS_HEIGHT);
                     g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), CROSS_HEIGHT, CROSS_WIDTH);
                 }
-                else if(flagsNearby[x][y] == 0 && (colorArray[x][y] == MyMouseAdapter.FLAG_COLOR) ){
-                	g2.setColor(Color.BLACK);
-                	g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 14), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 4), 4, 18);
-            		g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 11), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 18), 10, 4);
-            		g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 10), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 20), 12, 4);
-            		g.setColor(Color.RED);
-            		g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), 15, 10);
-            		g.setColor(Color.BLACK);
-            		g.drawRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), 15, 10);
-            		g.drawRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 3), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 3), 13, 8);
+                else if(flagsNearby[x][y] == 0 && (colorArray[x][y] == MyMouseAdapter.FLAG_COLOR)) {
+                	    g2.setColor(Color.BLACK);
+                	    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 14), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 4), 4, 18);
+                	    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 11), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 18), 10, 4);
+                	    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 10), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 20), 12, 4);
+            		    g.setColor(Color.RED);
+            		    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), 15, 10);
+            		    g.setColor(Color.BLACK);
+            		    g.drawRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), 15, 10);
+            		    g.drawRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 3), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 3), 13, 8);
                 }
 			}
 		}
@@ -157,13 +157,13 @@ public class MyPanel extends JPanel {
 			return;
 		} else {
 			if (colorArray[x][y] == MyMouseAdapter.REVEALED) { return; }
+			countTotal++;
 			colorArray[x][y] = MyMouseAdapter.REVEALED;
 			repaint();
 			revealAdjacent(x-1, y);
 			revealAdjacent(x, y-1);
 			revealAdjacent(x+1, y);
 			revealAdjacent(x, y+1);
-			countTotal++;
 		}
 		repaint();
 	}

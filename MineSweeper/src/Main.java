@@ -11,6 +11,7 @@ public class Main {
     
 	public static void main(String[] args) {
 	    generateMines();
+	    System.out.println(mineList);
 		JFrame myFrame = new JFrame("MineSweeper");
 		myFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		myFrame.setLocation(400, 150);
