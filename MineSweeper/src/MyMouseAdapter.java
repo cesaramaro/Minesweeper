@@ -98,25 +98,24 @@ public class MyMouseAdapter extends MouseAdapter {
                 	        myPanel.revealAdjacent(gridX, gridY);
                 	        if (myPanel.countTotal > 70) {
                 	        	    status = GameStatus.GAME_OVER;
-                	        	    
-                	        	    // When they win, set every mine (regardless of whether it was flagged or not to green)
+                	        	    // When they win, set every mine (regardless of whether it was flagged or not) to green
                 	        	    for (Point mine : mineList) {
                 	        	        myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = CORRECT_FLAG_COLOR;
                 	        	    }
                 	        	    myPanel.flagCount = 0;
                 	        	    int seconds = myPanel.sec;
                 	        	    int minutes = 0;
+                	        	    
                 	        	    while (seconds > 60) {
                 	        	        minutes++;
                 	        	        seconds = seconds - 60;
                 	        	    }
-                	        	    
+                	        	    String minutesLabel = minutes + (minutes == 1 ? " minute" : " minutes");
+                	        	    String secondsLabel = seconds + (seconds == 1 ? " second" : " seconds");
                 	        	    if (minutes == 0) {
-                	        	        showWindow(myFrame, "Congratulations!\nYou won in " + seconds + " seconds :)");
-                	        	    } else if (minutes == 1) {
-                	        	        showWindow(myFrame, "Congratulations!\nYou won in " + minutes + " minute and " + seconds + " seconds :)");
+                	        	        showWindow(myFrame, "Congratulations!\nYou won in " + secondsLabel + " :)"); 
                 	        	    } else {
-                	        	        showWindow(myFrame, "Congratulations!\nYou won in " + minutes + " minutes and " + seconds + " seconds :)");
+                	        	        showWindow(myFrame, "Congratulations!\nYou won in " + minutesLabel + " and " + secondsLabel + " :)");
                 	        	    }
                 	            myPanel.repaint();
                 	            break;

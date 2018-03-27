@@ -15,22 +15,23 @@ public class MyPanel extends JPanel {
 	private static final int GRID_X = 10;
 	private static final int GRID_Y = 10;
 	private static final int INNER_CELL_SIZE = 32;
+	private static final int INNER_CELL_PLUS = INNER_CELL_SIZE + 1;
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 9;
-	private final int NUMBER_SIZE = 20;
-	private final int MINE_WIDTH = 18;
-	private final int MINE_HEIGHT = 18;
-	private final int CROSS_WIDTH = 4;
-	private final int CROSS_HEIGHT = 24;
-	private final int CELL_CENTER = INNER_CELL_SIZE / 2;
+	private static final int NUMBER_SIZE = 20;
+	private static final int MINE_WIDTH = 18;
+	private static final int MINE_HEIGHT = 18;
+	private static final int CROSS_WIDTH = 4;
+	private static final int CROSS_HEIGHT = 24;
+	private static final int CELL_CENTER = INNER_CELL_SIZE / 2;
 	
-	Date startDate;
+	private Date startDate;
 	public int sec = 0;
 	
-	public int timeX = 237;
-	public int timeY = 313;
-	public int flagX = 10;
-	public int flagY = 313;
+	private int timeX = 237;
+	private int timeY = 313;
+	private int flagX = 10;
+	private int flagY = 313;
 	
 	public int x = -1;
 	public int y = -1;
@@ -82,10 +83,10 @@ public class MyPanel extends JPanel {
 		 */
 		g.setColor(Color.BLACK);
 		for (int y = 0; y <= TOTAL_ROWS; y++) {
-			g.drawLine(x1 + GRID_X, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)), x1 + GRID_X + ((INNER_CELL_SIZE + 1) * TOTAL_COLUMNS), y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)));
+			g.drawLine(x1 + GRID_X, y1 + GRID_Y + (y * INNER_CELL_PLUS), x1 + GRID_X + (INNER_CELL_PLUS * TOTAL_COLUMNS), y1 + GRID_Y + (y * INNER_CELL_PLUS));
 		}
 		for (int x = 0; x <= TOTAL_COLUMNS; x++) {
-			g.drawLine(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y, x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)), y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS)));
+			g.drawLine(x1 + GRID_X + (x * INNER_CELL_PLUS), y1 + GRID_Y, x1 + GRID_X + (x * INNER_CELL_PLUS), y1 + GRID_Y + (INNER_CELL_PLUS * (TOTAL_ROWS)));
 		}
 
 		//Paint cell colors
@@ -93,7 +94,7 @@ public class MyPanel extends JPanel {
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 					Color c = colorArray[x][y];
 					g.setColor(c);
-					g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
+					g.fillRect(x1 + GRID_X + (x * INNER_CELL_PLUS) + 1, y1 + GRID_Y + (y * INNER_CELL_PLUS) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
 			}
 		}
 		
@@ -106,25 +107,25 @@ public class MyPanel extends JPanel {
 					int total = minesNearby[x][y];
 					g.setColor(getNumberColor(total));
 					g.setFont(new Font("Arial", Font.BOLD, NUMBER_SIZE));
-					g.drawString(String.valueOf(total), x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 10, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 25);
+					g.drawString(String.valueOf(total), x1 + GRID_X + (x * INNER_CELL_PLUS) + 10, y1 + GRID_Y + (y * INNER_CELL_PLUS) + 25);
 				}
                 else if ((minesNearby[x][y] == 0) && ((colorArray[x][y] == MyMouseAdapter.MINE_CELL_COLOR) || colorArray[x][y] == MyMouseAdapter.CLICKED_MINE_COLOR)) {
-                    Ellipse2D.Double mineCircle = new Ellipse2D.Double((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 1), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 1), MINE_WIDTH, MINE_HEIGHT);
+                    Ellipse2D.Double mineCircle = new Ellipse2D.Double((x * INNER_CELL_PLUS + CELL_CENTER + 1), (y * INNER_CELL_PLUS + CELL_CENTER + 1), MINE_WIDTH, MINE_HEIGHT);
                     g2.setPaint(MyMouseAdapter.MINE_COLOR);
                     g2.fill(mineCircle);
-                    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), CROSS_WIDTH, CROSS_HEIGHT);
-                    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER - 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 8), CROSS_HEIGHT, CROSS_WIDTH);
+                    g.fillRect((x * INNER_CELL_PLUS + CELL_CENTER + 8), (y * INNER_CELL_PLUS + CELL_CENTER - 2), CROSS_WIDTH, CROSS_HEIGHT);
+                    g.fillRect((x * INNER_CELL_PLUS + CELL_CENTER - 2), (y * INNER_CELL_PLUS + CELL_CENTER + 8), CROSS_HEIGHT, CROSS_WIDTH);
                 }
                 else if (flagsNearby[x][y] == 0 && ((colorArray[x][y] == MyMouseAdapter.FLAG_COLOR) || colorArray[x][y] == MyMouseAdapter.CORRECT_FLAG_COLOR)) {
                 	    g2.setColor(Color.BLACK);
-                	    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 14), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 4), 4, 18);
-                	    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 11), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 18), 10, 4);
-                	    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 10), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 20), 12, 4);
+                	    g.fillRect((x * INNER_CELL_PLUS + CELL_CENTER + 14), (y * INNER_CELL_PLUS + CELL_CENTER + 4), 4, 18);
+                	    g.fillRect((x * INNER_CELL_PLUS + CELL_CENTER + 11), (y * INNER_CELL_PLUS + CELL_CENTER + 18), 10, 4);
+                	    g.fillRect((x * INNER_CELL_PLUS + CELL_CENTER + 10), (y * INNER_CELL_PLUS + CELL_CENTER + 20), 12, 4);
             		    g.setColor(Color.RED);
-            		    g.fillRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), 15, 10);
+            		    g.fillRect((x * INNER_CELL_PLUS + CELL_CENTER + 2), (y * INNER_CELL_PLUS + CELL_CENTER + 2), 15, 10);
             		    g.setColor(Color.BLACK);
-            		    g.drawRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 2), 15, 10);
-            		    g.drawRect((x * (INNER_CELL_SIZE + 1) + CELL_CENTER + 3), (y * (INNER_CELL_SIZE + 1) + CELL_CENTER + 3), 13, 8);
+            		    g.drawRect((x * INNER_CELL_PLUS + CELL_CENTER + 2), (y * INNER_CELL_PLUS + CELL_CENTER + 2), 15, 10);
+            		    g.drawRect((x * INNER_CELL_PLUS + CELL_CENTER + 3), (y * INNER_CELL_PLUS + CELL_CENTER + 3), 13, 8);
                 }
 			}
 		}
@@ -239,11 +240,11 @@ public class MyPanel extends JPanel {
 		if (y < 0) {   //Above the grid
 			return -1;
 		}
-		if ((x % (INNER_CELL_SIZE + 1) == 0) || (y % (INNER_CELL_SIZE + 1) == 0)) {   //Coordinate is at an edge; not inside a cell
+		if ((x % INNER_CELL_PLUS == 0) || (y % INNER_CELL_PLUS == 0)) {   //Coordinate is at an edge; not inside a cell
 			return -1;
 		}
-		x = x / (INNER_CELL_SIZE + 1);
-		y = y / (INNER_CELL_SIZE + 1);
+		x = x / INNER_CELL_PLUS;
+		y = y / INNER_CELL_PLUS;
 		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
 			return -1;
 		}
@@ -262,11 +263,11 @@ public class MyPanel extends JPanel {
 		if (y < 0) {   //Above the grid
 			return -1;
 		}
-		if ((x % (INNER_CELL_SIZE + 1) == 0) || (y % (INNER_CELL_SIZE + 1) == 0)) {   //Coordinate is at an edge; not inside a cell
+		if ((x % INNER_CELL_PLUS == 0) || (y % INNER_CELL_PLUS == 0)) {   //Coordinate is at an edge; not inside a cell
 			return -1;
 		}
-		x = x / (INNER_CELL_SIZE + 1);
-		y = y / (INNER_CELL_SIZE + 1);
+		x = x / INNER_CELL_PLUS;
+		y = y / INNER_CELL_PLUS;
 		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
 			return -1;
 		}

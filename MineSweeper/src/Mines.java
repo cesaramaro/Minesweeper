@@ -19,8 +19,6 @@ public class Mines {
         for (Point coords : main.getMines()) {
             if ((coords.getX() == x) && (coords.getY() == y)) {
                 return true;
-            } else {
-                continue;
             }
         }
         return false;
