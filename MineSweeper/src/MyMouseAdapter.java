@@ -98,12 +98,19 @@ public class MyMouseAdapter extends MouseAdapter {
                 	        myPanel.revealAdjacent(gridX, gridY);
                 	        if (myPanel.countTotal > 70) {
                 	        	    status = GameStatus.GAME_OVER;
+                	        	    
+                	        	    // When they win, set every mine (regardless of whether it was flagged or not to green)
+                	        	    for (Point mine : mineList) {
+                	        	        myPanel.colorArray[(int) mine.getX()][(int) mine.getY()] = CORRECT_FLAG_COLOR;
+                	        	    }
+                	        	    myPanel.flagCount = 0;
                 	        	    int seconds = myPanel.sec;
                 	        	    int minutes = 0;
                 	        	    while (seconds > 60) {
                 	        	        minutes++;
                 	        	        seconds = seconds - 60;
                 	        	    }
+                	        	    
                 	        	    if (minutes == 0) {
                 	        	        showWindow(myFrame, "Congratulations!\nYou won in " + seconds + " seconds :)");
                 	        	    } else if (minutes == 1) {
@@ -114,7 +121,6 @@ public class MyMouseAdapter extends MouseAdapter {
                 	            myPanel.repaint();
                 	            break;
                 	        }
-                	        myPanel.repaint();
                 	    }
     
                 	    /*

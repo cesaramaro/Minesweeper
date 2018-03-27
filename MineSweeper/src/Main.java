@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 
 public class Main {
     
-    private final static int MAX_MINES = 10;
     private static ArrayList<Point> mineList = new ArrayList<Point>();
     
 	public static void main(String[] args) {
@@ -34,7 +33,7 @@ public class Main {
         int minesAmount = 0;
         mineList.clear();
        
-        while (minesAmount < MAX_MINES) {
+        while (minesAmount < MyPanel.MAX_MINES) {
             Point newMine = new Point(generator.nextInt(9), generator.nextInt(9));
             while (mineList.contains(newMine)) {
                 newMine.setLocation(generator.nextInt(9), generator.nextInt(9));

@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 
 public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
+    public static final int MAX_MINES = 10;
+    public static final int MAX_FLAGS = 10;
 	private static final int GRID_X = 10;
 	private static final int GRID_Y = 10;
 	private static final int INNER_CELL_SIZE = 32;
@@ -22,7 +24,7 @@ public class MyPanel extends JPanel {
 	private final int CROSS_HEIGHT = 24;
 	private final int CELL_CENTER = INNER_CELL_SIZE / 2;
 	
-	Date startDate = new Date();
+	Date startDate;
 	public int sec = 0;
 	
 	public int timeX = 237;
@@ -132,22 +134,25 @@ public class MyPanel extends JPanel {
 		 */
 		g.setColor(Color.BLACK);
 		g.fillRect(timeX, timeY, 70, 33);
-		    if ((MyMouseAdapter.status != MyMouseAdapter.GameStatus.GAME_OVER) 
-		            && (MyMouseAdapter.status != MyMouseAdapter.GameStatus.NEW_GAME)) {
-		        sec = (int) ((new Date().getTime() - startDate.getTime()) / 1000);
-		    }
-        	    if(sec > 999) {
-        	        sec = 999;
-        	    }
-        	    g.setColor(Color.WHITE);
-        	    g.setFont(new Font("Arial", Font.PLAIN, 35));
-        	    if (sec < 10) {
-        	        g.drawString("00" + Integer.toString(sec), timeX + 10, timeY + 28);
-        	    } else if (sec < 100) {
-        	        g.drawString("0" + Integer.toString(sec), timeX + 10, timeY + 28);
-        	    } else if (sec < 1000) {
-        	        g.drawString(Integer.toString(sec), timeX + 10, timeY + 28);
-        	    }
+		if (MyMouseAdapter.status == MyMouseAdapter.GameStatus.NEW_GAME) {
+		    startDate = new Date();
+		}
+		
+	    if ((MyMouseAdapter.status != MyMouseAdapter.GameStatus.GAME_OVER) 
+	            && (MyMouseAdapter.status != MyMouseAdapter.GameStatus.NEW_GAME)) {
+	        sec = (int) ((new Date().getTime() - startDate.getTime()) / 1000);
+	    }
+	    
+	    if(sec > 999) { sec = 999; }
+	    g.setColor(Color.WHITE);
+	    g.setFont(new Font("Arial", Font.PLAIN, 35));
+	    if (sec < 10) {
+	        g.drawString("00" + Integer.toString(sec), timeX + 10, timeY + 28);
+	    } else if (sec < 100) {
+	        g.drawString("0" + Integer.toString(sec), timeX + 10, timeY + 28);
+	    } else if (sec < 1000) {
+	        g.drawString(Integer.toString(sec), timeX + 10, timeY + 28);
+	    }
 		repaint();
 		
 		/*
@@ -157,9 +162,9 @@ public class MyPanel extends JPanel {
 		g.fillRect(flagX, flagY, 70, 33);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.PLAIN, 35));
-		if(flagCount == 10) {
+		if(flagCount == MAX_FLAGS) {
 			g.drawString("0" + Integer.toString(flagCount), flagX + 10, flagY + 28);
-		} else if (flagCount < 10) {
+		} else if (flagCount < MAX_FLAGS) {
 			g.drawString("00" + Integer.toString(flagCount), flagX + 10, flagY + 28);
 		}
 	}
